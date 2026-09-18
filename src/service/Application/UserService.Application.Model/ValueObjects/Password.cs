@@ -4,9 +4,9 @@ public sealed class Password
 {
     public Password(string value)
     {
-        if (value.Length <= 0)
+        if (value.Length <= 6)
         {
-            throw new ArgumentException("Password must have a length of at least 1");
+            throw new ArgumentException("Password must have a length of at least 7");
         }
 
         Value = value;
