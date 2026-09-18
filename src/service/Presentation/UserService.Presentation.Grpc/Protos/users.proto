@@ -19,7 +19,7 @@ message CreateUserRequest {
   string password = 2;
   string name = 3;
   string surname = 4;
-  google.protobuf.Timestamp age = 5;
+  google.protobuf.Timestamp birthDate = 5;
 }
 
 message CreateUserReply {
@@ -43,7 +43,7 @@ message UpdateUserRequest {
   string password = 1;
   string name = 2;
   string surname = 3;
-  google.protobuf.Timestamp age = 4;
+  google.protobuf.Timestamp birthDate = 4;
 }
 
 message UpdateUserReply {
@@ -62,5 +62,5 @@ message User {
   string login = 1;
   string name = 2;
   string surname = 3;
-  google.protobuf.Timestamp age = 4;
+  google.protobuf.Timestamp birthDate = 4;
 }
