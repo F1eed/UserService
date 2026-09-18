@@ -6,7 +6,7 @@ public static class UpdateUser
         string Password,
         string Name,
         string Surname,
-        DateTime Age);
+        DateTime DateOfBirth);
 
     public abstract record Result
     {

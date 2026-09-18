@@ -4,14 +4,14 @@ namespace UserService.Application.Model.Users;
 
 public sealed class User
 {
-    public User(Guid id, Login login, Password password, string name, string surname, DateTime age)
+    public User(Guid id, Login login, Password password, string name, string surname, DateTime dateOfBirth)
     {
         Id = id;
         Login = login;
         Password = password;
         Name = name;
         Surname = surname;
-        Age = age;
+        DateOfBirth = dateOfBirth;
     }
 
     public Guid Id { get; }
@@ -24,5 +24,5 @@ public sealed class User
 
     public string Surname { get; }
 
-    public DateTime Age { get; }
+    public DateTime DateOfBirth { get; }
 }
