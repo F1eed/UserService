@@ -1,0 +1,22 @@
+name: dotnet build & test
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch: 
+    
+
+permissions:
+  contents: read
+  issues: read
+  checks: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: is-oop-y29/actions@master
