@@ -1,0 +1,20 @@
+﻿<Solution>
+    <Folder Name="/common/">
+        <File Path="Directory.Packages.props" />
+        <File Path="Directory.Build.props" />
+        <File Path=".gitignore" />
+    </Folder>
+    <Folder Name="/service/" />
+    <Folder Name="/service/Application/">
+        <Project Path="src/service/Application/UserService.Application.Abstractions/UserService.Application.Abstractions.csproj" />
+        <Project Path="src/service/Application/UserService.Application.Contracts/UserService.Application.Contracts.csproj" />
+        <Project Path="src/service/Application/UserService.Application.Model/UserService.Application.Model.csproj" />
+        <Project Path="src/service/Application/UserService.Application/UserService.Application.csproj" />
+    </Folder>
+    <Folder Name="/service/Infrastructure/">
+        <Project Path="src\service\Infrastructure\UserService.Infrastructure.Persistence\UserService.Infrastructure.Persistence.csproj" />
+    </Folder>
+    <Folder Name="/service/Presentation/">
+        <Project Path="src/service/Presentation/UserService.Presentation.Grpc/UserService.Presentation.Grpc.csproj" />
+    </Folder>
+</Solution>
