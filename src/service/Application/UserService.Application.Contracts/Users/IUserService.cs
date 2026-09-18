@@ -1,0 +1,26 @@
+﻿using UserService.Application.Contracts.Users.Operations;
+
+namespace UserService.Application.Contracts.Users;
+
+public interface IUserService
+{
+    Task<CreateUser.Result> CreateUserAsync(
+        CreateUser.Request request,
+        CancellationToken cancellationToken);
+
+    Task<GetUserById.Result> GetUserByIdAsync(
+        GetUserById.Request request,
+        CancellationToken cancellationToken);
+
+    Task<GetUserByName.Result> GetUserByNameAsync(
+        GetUserByName.Request request,
+        CancellationToken cancellationToken);
+
+    Task<UpdateUser.Result> UpdateUserResultAsync(
+        UpdateUser.Request request,
+        CancellationToken cancellationToken);
+
+    Task<DeleteUser.Result> DeleteUserAsync(
+        DeleteUser.Request request,
+        CancellationToken cancellationToken);
+}
