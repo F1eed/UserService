@@ -3,6 +3,7 @@
     <ProjectReference Include="..\UserService.Application.Model\UserService.Application.Model.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="SourceKit.Generators.Builder" />
     <PackageReference Include="SourceKit.Generators.Builder.Annotations" />
   </ItemGroup>
 </Project>
