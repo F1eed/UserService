@@ -1,4 +1,4 @@
-﻿namespace UserService.Application.Model.ValueObjects;
+﻿namespace UserService.Application.Model.Users.ValueObjects;
 
 public sealed class Login
 {
