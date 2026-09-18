@@ -1,4 +1,4 @@
-﻿using UserService.Application.Model.ValueObjects;
+﻿using UserService.Application.Model.Users.ValueObjects;
 
 namespace UserService.Application.Model.Users;
 
