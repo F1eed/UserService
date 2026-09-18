@@ -4,6 +4,11 @@ using UserService.Application.Model.Users;
 
 namespace UserService.Application.Abstractions.Persistence.Repositories;
 
+/*TODO:
+    * Контракты методов должны возвращать доменную сущность
+    * На стороне репозитория должны быть реализованы мапперы из UserDao -> User
+    * На самом сервисе не должно быть никакого маппинга
+*/
 public interface IUserRepository
 {
     Task AddUserAsync(
