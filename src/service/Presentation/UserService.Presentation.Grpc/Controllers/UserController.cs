@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using UserService.Application.Contracts.Users;
+using UserService.Application.Contracts.Users.Operations;
 
 namespace UserService.Presentation.Grpc.Controllers;
 
@@ -16,18 +17,18 @@ public class UserController : UserService.UserServiceBase
         CreateUserRequest request,
         ServerCallContext context)
     {
-        var users = new List<Application.Contracts.Users.Operations.CreateUser.UserEntry>();
-
-        foreach (ProtoUser user in request.Users)
-        {
-            users.Add(new Application.Contracts.Users.Operations.CreateUser.UserEntry(
+        var users = request.Users.Select(user => new CreateUser.UserEntry(
                 user.Login,
                 user.Password,
                 user.Name,
                 user.Surname,
-                user.BirthDate.ToDateTime()));
-        }
+                user.BirthDate.ToDateTime()))
+            .ToList();
 
-        await _userService.CreateUsersAsync(, context.CancellationToken);
+        var serviceRequest = new CreateUser.Request(users);
+
+        await _userService.CreateUsersAsync(serviceRequest, context.CancellationToken);
+
+        return await Task.FromResult(new EmptyResponse());
     }
 }
