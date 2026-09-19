@@ -1,4 +1,3 @@
-using UserService.Application.Abstractions.Persistence.Models;
 using UserService.Application.Abstractions.Persistence.Queries;
 using UserService.Application.Model.Users;
 

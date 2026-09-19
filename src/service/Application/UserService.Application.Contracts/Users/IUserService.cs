@@ -16,11 +16,11 @@ public interface IUserService
         GetUserByName.Request request,
         CancellationToken cancellationToken);
 
-    Task<UpdateUser.Result> UpdateUserResultAsync(
+    Task UpdateUserResultAsync(
         UpdateUser.Request request,
         CancellationToken cancellationToken);
 
-    Task<DeleteUser.Result> DeleteUserAsync(
+    Task DeleteUserAsync(
         DeleteUser.Request request,
         CancellationToken cancellationToken);
 }

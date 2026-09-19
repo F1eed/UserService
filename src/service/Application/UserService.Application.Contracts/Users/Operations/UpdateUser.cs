@@ -2,18 +2,9 @@
 
 public static class UpdateUser
 {
-    public record Request(
+    public readonly record struct Request(
         string Password,
         string Name,
         string Surname,
         DateTime DateOfBirth);
-
-    public abstract record Result
-    {
-        private Result() { }
-
-        public sealed record Success() : Result;
-
-        public sealed record Failure(string ErrorMessage) : Result;
-    }
 }

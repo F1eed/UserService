@@ -49,24 +49,58 @@ internal class UserService : IUserService
         return new GetUserById.Result.Success(user);
     }
 
-    public Task<GetUserByName.Result> GetUserByNameAsync(
+    public async Task<GetUserByName.Result> GetUserByNameAsync(
         GetUserByName.Request request,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using IPersistenceTransaction transaction = await _transactionProvider
+            .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
+
+        var query = UserQueryByNameAndSurname.Build(builder => builder
+            .WithName(request.Name)
+            .WithSurname(request.Surname));
+
+        IAsyncEnumerable<User> user = _context.UserRepository.QueryByNameAndSurnameAsync(
+            query,
+            cancellationToken);
+
+        return new GetUserByName.Result.Success(user);
     }
 
-    public Task<UpdateUser.Result> UpdateUserResultAsync(
+    public async Task UpdateUserResultAsync(
         UpdateUser.Request request,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using IPersistenceTransaction transaction = await _transactionProvider
+            .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
+
+        var query = UserUpdateQuery.Build(builder => builder
+            .WithPassword(request.Password)
+            .WithName(request.Name)
+            .WithSurname(request.Surname)
+            .WithDateOfBirth(request.DateOfBirth));
+
+        await _context.UserRepository.UpdateUserAsync(
+            query,
+            cancellationToken);
+
+        await transaction.CommitAsync(cancellationToken);
     }
 
-    public Task<DeleteUser.Result> DeleteUserAsync(
+    public async Task DeleteUserAsync(
         DeleteUser.Request request,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using IPersistenceTransaction transaction = await _transactionProvider
+            .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
+
+        var query = UserDeleteQuery.Build(builder => builder
+            .WithId(request.Id));
+
+        await _context.UserRepository.DeleteUserAsync(
+            query,
+            cancellationToken);
+
+        await transaction.CommitAsync(cancellationToken);
     }
 }
