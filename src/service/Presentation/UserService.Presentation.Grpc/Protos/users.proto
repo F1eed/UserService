@@ -10,8 +10,8 @@ package users;
 
 service UserService {
   rpc CreateUsers (CreateUsersRequest) returns (google.protobuf.Empty);
-  rpc GetUserById (GetUserByIdRequest) returns (GetUserResponse);
-  rpc GetUsersByName (GetUsersByNameRequest) returns (GetUsersResponse);
+  rpc GetUserById (GetUserRequest) returns (GetUserResponse);
+  rpc GetUsersByName (GetUsersRequest) returns (GetUsersResponse);
   rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
   rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
 }
@@ -28,7 +28,7 @@ message CreateUserEntry {
   google.protobuf.Timestamp birth_date = 5;
 }
 
-message GetUserByIdRequest {
+message GetUserRequest {
   string id = 1;
 }
 
@@ -36,7 +36,7 @@ message GetUserResponse {
   User user = 1;
 }
 
-message GetUsersByNameRequest {
+message GetUsersRequest {
   string name = 1;
   string surname = 2;
 }
@@ -59,8 +59,7 @@ message DeleteUserRequest {
 
 message User {
   string login = 1;
-  string password = 2;
-  string name = 3;
-  string surname = 4;
-  google.protobuf.Timestamp birth_date = 5;
+  string name = 2;
+  string surname = 3;
+  google.protobuf.Timestamp birth_date = 4;
 }

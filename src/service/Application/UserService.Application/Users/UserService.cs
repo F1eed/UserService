@@ -21,7 +21,7 @@ internal class UserService : IUserService
     }
 
     public async Task CreateUsersAsync(
-        CreateUser.Request request,
+        CreateUsers.Request request,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
@@ -44,8 +44,8 @@ internal class UserService : IUserService
         await transaction.CommitAsync(cancellationToken);
     }
 
-    public async Task<GetUserById.Result> GetUserByIdAsync(
-        GetUserById.Request request,
+    public async Task<GetUser.Result> GetUserAsync(
+        GetUser.Request request,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
@@ -59,14 +59,14 @@ internal class UserService : IUserService
 
         if (user is null)
         {
-            return new GetUserById.Result.Failure("User not found");
+            return new GetUser.Result.Failure("User not found");
         }
 
-        return new GetUserById.Result.Success(user.MapToDto());
+        return new GetUser.Result.Success(user.MapToDto());
     }
 
-    public async Task<GetUserByName.Result> GetUserByNameAsync(
-        GetUserByName.Request request,
+    public async Task<GetUsers.Result> GetUsersAsync(
+        GetUsers.Request request,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
@@ -87,10 +87,10 @@ internal class UserService : IUserService
 
         if (users.Count == 0)
         {
-            return new GetUserByName.Result.Failure("Users not found.");
+            return new GetUsers.Result.Failure("Users not found.");
         }
 
-        return new GetUserByName.Result.Success(
+        return new GetUsers.Result.Success(
             users.Select(user => user.MapToDto()).ToList());
     }
 

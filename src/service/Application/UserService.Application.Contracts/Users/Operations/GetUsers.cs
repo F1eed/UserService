@@ -2,7 +2,7 @@
 
 namespace UserService.Application.Contracts.Users.Operations;
 
-public static class GetUserByName
+public static class GetUsers
 {
     public record Request(string Name, string Surname);
 

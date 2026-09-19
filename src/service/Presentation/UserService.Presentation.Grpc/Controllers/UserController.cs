@@ -18,7 +18,7 @@ public class UserController : UserService.UserServiceBase
         CreateUsersRequest request,
         ServerCallContext context)
     {
-        var users = request.Entries.Select(user => new CreateUser.UserEntry(
+        var users = request.Entries.Select(user => new CreateUsers.UserEntry(
                 user.Login,
                 user.Password,
                 user.Name,
@@ -26,10 +26,17 @@ public class UserController : UserService.UserServiceBase
                 user.BirthDate.ToDateTime()))
             .ToList();
 
-        var serviceRequest = new CreateUser.Request(users);
+        var serviceRequest = new CreateUsers.Request(users);
 
         await _userService.CreateUsersAsync(serviceRequest, context.CancellationToken);
 
         return await Task.FromResult(new Empty());
+    }
+
+    public override async Task<GetUsersResponse> GetUsersByName(
+        GetUsersRequest request,
+        ServerCallContext context)
+    {
+        var serviceRequest = new 
     }
 }

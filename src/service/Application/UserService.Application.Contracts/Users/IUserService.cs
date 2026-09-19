@@ -5,15 +5,15 @@ namespace UserService.Application.Contracts.Users;
 public interface IUserService
 {
     Task CreateUsersAsync(
-        CreateUser.Request request,
+        CreateUsers.Request request,
         CancellationToken cancellationToken);
 
-    Task<GetUserById.Result> GetUserByIdAsync(
-        GetUserById.Request request,
+    Task<GetUser.Result> GetUserAsync(
+        GetUser.Request request,
         CancellationToken cancellationToken);
 
-    Task<GetUserByName.Result> GetUserByNameAsync(
-        GetUserByName.Request request,
+    Task<GetUsers.Result> GetUsersAsync(
+        GetUsers.Request request,
         CancellationToken cancellationToken);
 
     Task UpdateUserResultAsync(

@@ -2,7 +2,7 @@
 
 namespace UserService.Application.Contracts.Users.Operations;
 
-public static class GetUserById
+public static class GetUser
 {
     public record Request(long Id);
 

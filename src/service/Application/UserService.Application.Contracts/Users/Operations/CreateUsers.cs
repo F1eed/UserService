@@ -1,6 +1,6 @@
 ﻿namespace UserService.Application.Contracts.Users.Operations;
 
-public static class CreateUser
+public static class CreateUsers
 {
     public readonly record struct Request(IReadOnlyCollection<UserEntry> Users);
 
