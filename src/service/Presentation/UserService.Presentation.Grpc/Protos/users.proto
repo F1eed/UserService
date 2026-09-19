@@ -9,11 +9,11 @@ option csharp_namespace = "UserService.Presentation.Grpc";
 package users;
 
 service UserService {
-  rpc CreateUsers (CreateUsersRequest) returns (EmptyResponse);
+  rpc CreateUsers (CreateUsersRequest) returns (google.protobuf.Empty);
   rpc GetUserById (GetUserByIdRequest) returns (GetUserResponse);
   rpc GetUserByName (GetUserByNameRequest) returns (GetUserByNameResponse);
-  rpc UpdateUser (UpdateUserRequest) returns (EmptyResponse);
-  rpc DeleteUser (DeleteUserRequest) returns (EmptyResponse);
+  rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
+  rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
 }
 
 message CreateUsersRequest {
@@ -46,18 +46,15 @@ message GetUserByNameResponse {
 }
 
 message UpdateUserRequest {
-  google.protobuf.StringValue password = 1;
-  google.protobuf.StringValue name = 2;
-  google.protobuf.StringValue surname = 3;
-  google.protobuf.Timestamp birth_date = 4;
+  string id = 1;
+  google.protobuf.StringValue password = 2;
+  google.protobuf.StringValue name = 3;
+  google.protobuf.StringValue surname = 4;
+  google.protobuf.Timestamp birth_date = 5;
 }
 
 message DeleteUserRequest {
   string id = 1;
-}
-
-message EmptyResponse {
-  google.protobuf.Empty response = 1;
 }
 
 message User {
