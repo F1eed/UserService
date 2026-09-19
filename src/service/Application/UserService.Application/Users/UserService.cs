@@ -102,6 +102,7 @@ internal class UserService : IUserService
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
         var query = UserUpdateQuery.Build(builder => builder
+            .WithId(request.Id)
             .WithPassword(request.Password)
             .WithName(request.Name)
             .WithSurname(request.Surname)
