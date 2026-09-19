@@ -4,12 +4,15 @@ namespace UserService.Application.Model.Users;
 
 public sealed class User
 {
-    // TODO: сделать два конструктора, один публичный(который без id), второй приватный(с id)
-    // и к нему статический метод типа CreateFromDb i think
-    // может даппер будет(но как будто всё равно вызывать такой метод придётся)
-    public User(Guid id, Login login, Password password, string name, string surname, DateTime dateOfBirth)
+    private User(
+        UserId userId,
+        Login login,
+        Password password,
+        string name,
+        string surname,
+        DateTime dateOfBirth)
     {
-        Id = id;
+        UserId = userId;
         Login = login;
         Password = password;
         Name = name;
@@ -17,7 +20,28 @@ public sealed class User
         DateOfBirth = dateOfBirth;
     }
 
-    public Guid Id { get; }
+    public static User CreateFromDb(
+        UserId userId,
+        Login login,
+        Password password,
+        string name,
+        string surname,
+        DateTime dateOfBirth)
+    {
+        return new User(userId, login, password, name, surname, dateOfBirth);
+    }
+
+    public static User CreateFromService(
+        Login login,
+        Password password,
+        string name,
+        string surname,
+        DateTime dateOfBirth)
+    {
+        return new User(UserId.Default(), login, password, name, surname, dateOfBirth);
+    }
+
+    public UserId UserId { get; }
 
     public Login Login { get; }
 
