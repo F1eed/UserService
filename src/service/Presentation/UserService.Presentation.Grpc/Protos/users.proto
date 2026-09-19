@@ -28,7 +28,7 @@ message CreateUserEntry {
 }
 
 message GetUserRequest {
-  string id = 1;
+  int64 id = 1;
 }
 
 message GetUserResponse {
@@ -45,15 +45,15 @@ message GetUsersResponse {
 }
 
 message UpdateUserRequest {
-  string id = 1;
+  int64 id = 1;
   optional string password = 2;
   optional string name = 3;
   optional string surname = 4;
-  google.protobuf.Timestamp birth_date = 5;
+  optional google.protobuf.Timestamp birth_date = 5;
 }
 
 message DeleteUserRequest {
-  string id = 1;
+  int64 id = 1;
 }
 
 message User {
