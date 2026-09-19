@@ -1,5 +1,9 @@
 ﻿namespace UserService.Presentation.Grpc;
 
-public class Program
+internal class Program
 {
+    public static void Main()
+    {
+        Console.WriteLine("Hello World!");
+    }
 }
