@@ -1,17 +1,19 @@
 ﻿syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 
 option csharp_namespace = "UserService.Presentation.Grpc";
 
 package users;
 
 service UserService {
-  rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
-  rpc GetUserById (GetUserByIdRequest) returns (GetUserReply);
-  rpc GetUserByName (GetUserByNameRequest) returns (GetUserReply);
-  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
-  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
+  rpc CreateUser (CreateUserRequest) returns (EmptyResponse);
+  rpc GetUserById (GetUserByIdRequest) returns (GetUserResponse);
+  rpc GetUserByName (GetUserByNameRequest) returns (GetUserResponse);
+  rpc UpdateUser (UpdateUserRequest) returns (EmptyResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (EmptyResponse);
 }
 
 message CreateUserRequest {
@@ -19,18 +21,14 @@ message CreateUserRequest {
   string password = 2;
   string name = 3;
   string surname = 4;
-  google.protobuf.Timestamp birthDate = 5;
-}
-
-message CreateUserReply {
-  string message = 1;
+  google.protobuf.Timestamp birth_date = 5;
 }
 
 message GetUserByIdRequest {
   string id = 1;
 }
 
-message GetUserReply {
+message GetUserResponse {
   User user = 1;
 }
 
@@ -40,27 +38,23 @@ message GetUserByNameRequest {
 }
 
 message UpdateUserRequest {
-  string password = 1;
-  string name = 2;
-  string surname = 3;
-  google.protobuf.Timestamp birthDate = 4;
-}
-
-message UpdateUserReply {
-  string message = 1;
+  google.protobuf.StringValue password = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.StringValue surname = 3;
+  google.protobuf.Timestamp birth_date = 4;
 }
 
 message DeleteUserRequest {
   string id = 1;
 }
 
-message DeleteUserReply {
-  string message = 1;
+message EmptyResponse {
+  google.protobuf.Empty response = 1;
 }
 
 message User {
   string login = 1;
   string name = 2;
   string surname = 3;
-  google.protobuf.Timestamp birthDate = 4;
+  google.protobuf.Timestamp birth_date = 4;
 }
