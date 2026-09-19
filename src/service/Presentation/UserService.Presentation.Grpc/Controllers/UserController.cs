@@ -1,7 +1,9 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using System.Diagnostics;
 using UserService.Application.Contracts.Users;
 using UserService.Application.Contracts.Users.Operations;
+using UserService.Presentation.Grpc.Mapping;
 
 namespace UserService.Presentation.Grpc.Controllers;
 
@@ -33,10 +35,28 @@ public class UserController : UserService.UserServiceBase
         return await Task.FromResult(new Empty());
     }
 
-    public override async Task<GetUsersResponse> GetUsersByName(
+    public override async Task<GetUsersResponse> GetUsers(
         GetUsersRequest request,
         ServerCallContext context)
     {
-        var serviceRequest = new 
+        var serviceRequest = new GetUsers.Request(
+            request.Name,
+            request.Surname);
+
+        GetUsers.Result serviceResult = await _userService.GetUsersAsync(
+            serviceRequest,
+            context.CancellationToken);
+
+        return serviceResult switch
+        {
+            GetUsers.Result.Success success => new GetUsersResponse()
+            {
+                Users = { success.Users.Select(x => x.MapToProto()) },
+            },
+            GetUsers.Result.Failure failure => throw new RpcException(new Status(
+                StatusCode.NotFound,
+                failure.ErrorMessage)),
+            _ => throw new UnreachableException(),
+        };
     }
 }

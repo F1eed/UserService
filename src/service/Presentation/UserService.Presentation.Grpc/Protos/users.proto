@@ -10,8 +10,8 @@ package users;
 
 service UserService {
   rpc CreateUsers (CreateUsersRequest) returns (google.protobuf.Empty);
-  rpc GetUserById (GetUserRequest) returns (GetUserResponse);
-  rpc GetUsersByName (GetUsersRequest) returns (GetUsersResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
   rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
   rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
 }
@@ -42,7 +42,7 @@ message GetUsersRequest {
 }
 
 message GetUsersResponse {
-  repeated User user = 1;
+  repeated User users = 1;
 }
 
 message UpdateUserRequest {
