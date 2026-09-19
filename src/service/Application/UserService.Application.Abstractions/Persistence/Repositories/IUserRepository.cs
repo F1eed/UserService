@@ -15,11 +15,11 @@ public interface IUserRepository
         IReadOnlyCollection<User> users,
         CancellationToken cancellationToken);
 
-    Task<UserDao> QueryByIdAsync(
+    Task<User> QueryByIdAsync(
         UserQueryById query,
         CancellationToken cancellationToken);
 
-    IAsyncEnumerable<UserDao> QueryByNameAndSurnameAsync(
+    IAsyncEnumerable<User> QueryByNameAndSurnameAsync(
         UserQueryByNameAndSurname query,
         CancellationToken cancellationToken);
 

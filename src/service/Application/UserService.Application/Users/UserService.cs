@@ -1,10 +1,10 @@
 ﻿using System.Data;
 using UserService.Application.Abstractions.Persistence;
-using UserService.Application.Abstractions.Persistence.Models;
 using UserService.Application.Abstractions.Persistence.Queries;
 using UserService.Application.Abstractions.Persistence.Transactions;
 using UserService.Application.Contracts.Users;
 using UserService.Application.Contracts.Users.Operations;
+using UserService.Application.Model.Users;
 
 namespace UserService.Application.Users;
 
@@ -47,7 +47,6 @@ internal class UserService : IUserService
             query, cancellationToken);
 
         return new GetUserById.Result.Success(user);
-
     }
 
     public Task<GetUserByName.Result> GetUserByNameAsync(
