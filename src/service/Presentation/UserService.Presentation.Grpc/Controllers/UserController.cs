@@ -83,4 +83,15 @@ public class UserController : UserService.UserServiceBase
             _ => throw new UnreachableException(),
         };
     }
+
+    public override async Task<Empty> DeleteUser(
+        DeleteUserRequest request,
+        ServerCallContext context)
+    {
+        var serviceRequest = new DeleteUser.Request(request.Id);
+
+        await _userService.DeleteUserAsync(serviceRequest, context.CancellationToken);
+
+        return await Task.FromResult(new Empty());
+    }
 }
