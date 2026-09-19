@@ -84,6 +84,13 @@ public class UserController : UserService.UserServiceBase
         };
     }
 
+    public override Task<Empty> UpdateUser(
+        UpdateUserRequest request,
+        ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
+
     public override async Task<Empty> DeleteUser(
         DeleteUserRequest request,
         ServerCallContext context)
