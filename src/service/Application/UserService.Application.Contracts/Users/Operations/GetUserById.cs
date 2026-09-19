@@ -1,4 +1,4 @@
-﻿using UserService.Application.Model.Users;
+﻿using UserService.Application.Contracts.Models;
 
 namespace UserService.Application.Contracts.Users.Operations;
 
@@ -10,7 +10,7 @@ public static class GetUserById
     {
         private Result() { }
 
-        public sealed record Success(User User) : Result;
+        public sealed record Success(UserDto User) : Result;
 
         public sealed record Failure(string ErrorMessage) : Result;
     }

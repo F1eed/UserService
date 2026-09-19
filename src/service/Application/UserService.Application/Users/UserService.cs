@@ -4,6 +4,7 @@ using UserService.Application.Abstractions.Persistence.Queries;
 using UserService.Application.Abstractions.Persistence.Transactions;
 using UserService.Application.Contracts.Users;
 using UserService.Application.Contracts.Users.Operations;
+using UserService.Application.Mapping;
 using UserService.Application.Model.Users;
 
 namespace UserService.Application.Users;
@@ -19,7 +20,7 @@ internal class UserService : IUserService
         _context = context;
     }
 
-    public async Task<IReadOnlyCollection<User>> CreateUsersAsync(
+    public async Task CreateUsersAsync(
         CreateUser.Request request,
         CancellationToken cancellationToken)
     {
@@ -32,8 +33,6 @@ internal class UserService : IUserService
             .ToListAsync(cancellationToken: cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
-
-        return users;
     }
 
     public async Task<GetUserById.Result> GetUserByIdAsync(
@@ -49,7 +48,7 @@ internal class UserService : IUserService
         User user = await _context.UserRepository.QueryByIdAsync(
             query, cancellationToken);
 
-        return new GetUserById.Result.Success(user);
+        return new GetUserById.Result.Success(user.MapToDto());
     }
 
     public async Task<GetUserByName.Result> GetUserByNameAsync(
@@ -63,11 +62,17 @@ internal class UserService : IUserService
             .WithName(request.Name)
             .WithSurname(request.Surname));
 
-        IAsyncEnumerable<User> user = _context.UserRepository.QueryByNameAndSurnameAsync(
-            query,
-            cancellationToken);
+        List<User> users = [];
 
-        return new GetUserByName.Result.Success(user);
+        await foreach (User user in _context.UserRepository.QueryByNameAndSurnameAsync(
+                           query,
+                           cancellationToken))
+        {
+            users.Add(user);
+        }
+
+        return new GetUserByName.Result.Success(
+            users.Select(user => user.MapToDto()).ToList());
     }
 
     public async Task UpdateUserResultAsync(
