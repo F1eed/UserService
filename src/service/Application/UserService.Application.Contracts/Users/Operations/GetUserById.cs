@@ -4,7 +4,7 @@ namespace UserService.Application.Contracts.Users.Operations;
 
 public static class GetUserById
 {
-    public record Request(Guid Id);
+    public record Request(long Id);
 
     public abstract record Result
     {

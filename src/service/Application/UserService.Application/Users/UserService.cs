@@ -26,7 +26,7 @@ internal class UserService : IUserService
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var users = await _context.UserRepository.AddUsersAsync(
+        List<User> users = await _context.UserRepository.AddUsersAsync(
             request.Users,
             cancellationToken)
             .ToListAsync(cancellationToken: cancellationToken);
