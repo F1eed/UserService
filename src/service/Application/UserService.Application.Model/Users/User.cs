@@ -32,13 +32,19 @@ public sealed class User
     }
 
     public static User CreateFromService(
-        Login login,
-        Password password,
+        string login,
+        string password,
         string name,
         string surname,
         DateTime dateOfBirth)
     {
-        return new User(UserId.Default(), login, password, name, surname, dateOfBirth);
+        return new User(
+            UserId.Default(),
+            new Login(login),
+            new Password(password),
+            name,
+            surname,
+            dateOfBirth);
     }
 
     public UserId UserId { get; }
