@@ -73,7 +73,7 @@ public class UserController : UserService.UserServiceBase
 
         return serviceResult switch
         {
-            GetUsers.Result.Success success => new GetUsersResponse()
+            GetUsers.Result.Success success => new GetUsersResponse
             {
                 Users = { success.Users.Select(x => x.MapToProto()) },
             },
