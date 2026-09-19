@@ -47,9 +47,9 @@ message GetUsersResponse {
 
 message UpdateUserRequest {
   string id = 1;
-  google.protobuf.StringValue password = 2;
-  google.protobuf.StringValue name = 3;
-  google.protobuf.StringValue surname = 4;
+  optional string password = 2;
+  optional string name = 3;
+  optional string surname = 4;
   google.protobuf.Timestamp birth_date = 5;
 }
 
