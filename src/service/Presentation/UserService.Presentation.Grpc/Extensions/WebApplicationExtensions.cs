@@ -1,6 +1,12 @@
-﻿namespace UserService.Presentation.Grpc.Extensions;
+﻿using UserService.Presentation.Grpc.Controllers;
 
-public class WebApplicationExtensions
+namespace UserService.Presentation.Grpc.Extensions;
+
+public static class WebApplicationExtensions
 {
-    
+    public static void UsePresentationGrpc(this WebApplication app)
+    {
+        app.MapGrpcService<UserController>();
+        app.MapGrpcReflectionService();
+    }
 }
