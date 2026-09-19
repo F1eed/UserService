@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using UserService.Application.Contracts.Users;
 using UserService.Application.Contracts.Users.Operations;
 
@@ -13,7 +14,7 @@ public class UserController : UserService.UserServiceBase
         _userService = userService;
     }
 
-    public override async Task<EmptyResponse> CreateUsers(
+    public override async Task<Empty> CreateUsers(
         CreateUsersRequest request,
         ServerCallContext context)
     {
@@ -29,6 +30,6 @@ public class UserController : UserService.UserServiceBase
 
         await _userService.CreateUsersAsync(serviceRequest, context.CancellationToken);
 
-        return await Task.FromResult(new EmptyResponse());
+        return await Task.FromResult(new Empty());
     }
 }
