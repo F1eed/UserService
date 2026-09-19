@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\Application\UserService.Application\UserService.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\UserService.Infrastructure.Persistence\UserService.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Presentation\UserService.Presentation.Grpc\UserService.Presentation.Grpc.csproj" />
+  </ItemGroup>
+</Project>
