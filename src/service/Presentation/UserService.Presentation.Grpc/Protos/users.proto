@@ -58,7 +58,8 @@ message EmptyResponse {
 
 message User {
   string login = 1;
-  string name = 2;
-  string surname = 3;
-  google.protobuf.Timestamp birth_date = 4;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  google.protobuf.Timestamp birth_date = 5;
 }
