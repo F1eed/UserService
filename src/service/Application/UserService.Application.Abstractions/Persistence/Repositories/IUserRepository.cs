@@ -5,7 +5,7 @@ namespace UserService.Application.Abstractions.Persistence.Repositories;
 
 public interface IUserRepository
 {
-    Task AddUserAsync(
+    IAsyncEnumerable<User> AddUsersAsync(
         IReadOnlyCollection<User> users,
         CancellationToken cancellationToken);
 

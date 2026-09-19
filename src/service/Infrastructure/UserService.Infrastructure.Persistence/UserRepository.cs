@@ -15,9 +15,9 @@ public class UserRepository : IUserRepository
         _dataSource = dataSource;
     }
 
-    public async Task AddUserAsync(
+    public async IAsyncEnumerable<User> AddUsersAsync(
         IReadOnlyCollection<User> users,
-        CancellationToken cancellationToken)
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
