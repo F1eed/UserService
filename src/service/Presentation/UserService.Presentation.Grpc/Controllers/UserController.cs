@@ -35,6 +35,30 @@ public class UserController : UserService.UserServiceBase
         return await Task.FromResult(new Empty());
     }
 
+    public override async Task<GetUserResponse> GetUser(
+        GetUserRequest request,
+        ServerCallContext context)
+    {
+        var serviceRequest = new GetUser.Request(
+            request.Id);
+
+        GetUser.Result serviceResult = await _userService.GetUserAsync(
+            serviceRequest,
+            context.CancellationToken);
+
+        return serviceResult switch
+        {
+            GetUser.Result.Success success => new GetUserResponse
+            {
+                User = success.User.MapToProto(),
+            },
+            GetUser.Result.Failure failure => throw new RpcException(new Status(
+                StatusCode.NotFound,
+                failure.ErrorMessage)),
+            _ => throw new UnreachableException(),
+        };
+    }
+
     public override async Task<GetUsersResponse> GetUsers(
         GetUsersRequest request,
         ServerCallContext context)
