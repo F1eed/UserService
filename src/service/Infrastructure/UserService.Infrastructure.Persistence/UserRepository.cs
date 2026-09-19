@@ -1,8 +1,11 @@
 using Npgsql;
+using System.Data;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 using UserService.Application.Abstractions.Persistence.Queries;
 using UserService.Application.Abstractions.Persistence.Repositories;
 using UserService.Application.Model.Users;
+using UserService.Application.Model.Users.ValueObjects;
 
 namespace UserService.Infrastructure.Persistence;
 
@@ -19,28 +22,156 @@ public class UserRepository : IUserRepository
         IReadOnlyCollection<User> users,
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        if (users.Count == 0)
+        {
+            yield break;
+        }
+
+        await using NpgsqlConnection connection = await _dataSource
+            .OpenConnectionAsync(cancellationToken);
+
+        const string sql = """
+        INSERT INTO user (user_login, user_password, user_name, user_surname, user_date_of_birth)
+        SELECT * FROM UNNEST(:user_logins, :user_passwords, :user_names, :user_surnames, :users_date_of_birth)
+        RETURNING user_id, user_login, user_password, user_name, user_surname, user_date_of_birth
+        """;
+
+        string[] logins = [.. users.Select(x => x.Login.Value)];
+        string[] passwords = [.. users.Select(x => x.Password.Value)];
+        string[] names = [.. users.Select(x => x.Name)];
+        string[] surnames = [.. users.Select(x => x.Surname)];
+        DateTime[] dates = [.. users.Select(x => x.DateOfBirth)];
+
+        await using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.Add(new NpgsqlParameter("user_logins", logins));
+        command.Parameters.Add(new NpgsqlParameter("user_passwords", passwords));
+        command.Parameters.Add(new NpgsqlParameter("user_names", names));
+        command.Parameters.Add(new NpgsqlParameter("user_surnames", surnames));
+        command.Parameters.Add(new NpgsqlParameter("users_date_of_birth", dates));
+
+        await using DbDataReader reader = await command.ExecuteReaderAsync(cancellationToken);
+
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            yield return MapReaderToUser(reader);
+        }
     }
 
-    public Task<User> QueryByIdAsync(UserQueryById query, CancellationToken cancellationToken)
+    public async Task<User> QueryByIdAsync(
+        UserQueryById query,
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using NpgsqlConnection connection = await _dataSource.OpenConnectionAsync(cancellationToken);
+
+        const string sql = """
+        SELECT user_id,
+            user_login,
+            user_password,
+            user_name,
+            user_surname,
+            user_date_of_birth
+        FROM users
+        WHERE (cardinality(:id) OR user_id = ANY(:id))
+        """;
+
+        long userId = query.Id;
+
+        await using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.Add(new NpgsqlParameter("id", userId));
+        await using DbDataReader reader = await command.ExecuteReaderAsync(cancellationToken);
+
+        return MapReaderToUser(reader);
     }
 
-    public IAsyncEnumerable<User> QueryByNameAndSurnameAsync(
+    public async IAsyncEnumerable<User> QueryByNameAndSurnameAsync(
         UserQueryByNameAndSurname query,
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using NpgsqlConnection connection = await _dataSource.OpenConnectionAsync(cancellationToken);
+
+        const string sql = """
+        SELECT user_id,
+            user_login,
+            user_password,
+            user_name,
+            user_surname,
+            user_date_of_birth
+        FROM users
+        WHERE (:user_name = user_name) AND (:user_surname = user_surname)
+        """;
+
+        string name = query.Name;
+        string surname = query.Surname;
+
+        await using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.Add(new NpgsqlParameter("user_name", name));
+        command.Parameters.Add(new NpgsqlParameter("user_surname", surname));
+        await using DbDataReader reader = await command.ExecuteReaderAsync(cancellationToken);
+
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            yield return MapReaderToUser(reader);
+        }
     }
 
-    public Task UpdateUserAsync(UserUpdateQuery query, CancellationToken cancellationToken)
+    public async Task UpdateUserAsync(
+        UserUpdateQuery query,
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using NpgsqlConnection connection = await _dataSource.OpenConnectionAsync(cancellationToken);
+
+        const string sql = """
+        UPDATE users 
+        SET user_password = COALESCE(:password, user_password),
+            user_name = COALESCE(:name, user_name),
+            user_surname = COALESCE(:surname, user_surname),
+            user_date_of_birth = COALESCE (:date_of_birth, user_date_of_birth),
+            updated_at = now()
+        WHERE (user_id = :id)
+        """;
+
+        long userId = query.Id;
+        string? name = query.Name;
+        string? surname = query.Surname;
+        string? password = query.Password;
+        DateTime? dateOfBirth = query.DateOfBirth;
+
+        await using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.Add(new NpgsqlParameter("id", userId));
+        command.Parameters.Add(new NpgsqlParameter("name", name));
+        command.Parameters.Add(new NpgsqlParameter("surname", surname));
+        command.Parameters.Add(new NpgsqlParameter("password", password));
+        command.Parameters.Add(new NpgsqlParameter("date_of_birth", dateOfBirth));
+
+        await command.ExecuteNonQueryAsync(cancellationToken);
     }
 
-    public Task DeleteUserAsync(UserDeleteQuery query, CancellationToken cancellationToken)
+    public async Task DeleteUserAsync(
+        UserDeleteQuery query,
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await using NpgsqlConnection connection = await _dataSource.OpenConnectionAsync(cancellationToken);
+
+        const string sql = """
+        DELETE FROM users
+        WHERE (user_id = :id)
+        """;
+
+        long userId = query.Id;
+        await using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.Add(new NpgsqlParameter("id", userId));
+
+        await command.ExecuteNonQueryAsync(cancellationToken);
+    }
+
+    private static User MapReaderToUser(DbDataReader reader)
+    {
+        return User.CreateFromDb(
+            new UserId(reader.GetInt64("user_id")),
+            new Login(reader.GetString("user_login")),
+            new Password(reader.GetString("user_password")),
+            reader.GetString("user_name"),
+            reader.GetString("user_surname"),
+            reader.GetDateTime("user_date_of_birth"));
     }
 }

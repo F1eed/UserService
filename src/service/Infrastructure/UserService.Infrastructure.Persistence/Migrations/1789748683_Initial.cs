@@ -8,12 +8,15 @@ public class Initial : Migration
     public override void Up()
     {
         Create.Table("users")
-            .WithColumn("user_id").AsGuid().NotNullable().PrimaryKey().Identity()
+            .WithColumn("user_id").AsInt64().NotNullable().PrimaryKey().Identity()
             .WithColumn("user_login").AsString().NotNullable().Unique()
             .WithColumn("user_password").AsString().NotNullable()
             .WithColumn("user_name").AsString().NotNullable()
             .WithColumn("user_surname").AsString().NotNullable()
-            .WithColumn("user_date_of_birth").AsDateTime();
+            .WithColumn("user_date_of_birth").AsDateTime()
+            .WithColumn("created_at").AsDateTime().NotNullable()
+                .WithDefault(SystemMethods.CurrentDateTimeOffset)
+            .WithColumn("updated_at").AsDateTime().Nullable();
 
         Execute.Sql("""
         ALTER TABLE users
