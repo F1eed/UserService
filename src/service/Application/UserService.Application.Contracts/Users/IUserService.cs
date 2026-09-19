@@ -1,10 +1,11 @@
 ﻿using UserService.Application.Contracts.Users.Operations;
+using UserService.Application.Model.Users;
 
 namespace UserService.Application.Contracts.Users;
 
 public interface IUserService
 {
-    Task CreateUserAsync(
+    Task<IReadOnlyCollection<User>> CreateUsersAsync(
         CreateUser.Request request,
         CancellationToken cancellationToken);
 
