@@ -2,4 +2,15 @@
   <PropertyGroup>
     <RootNamespace>UserService.Infrastructure.Persistence</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="FluentMigrator" />
+    <PackageReference Include="FluentMigrator.Runner.Postgres" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" />
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="Npgsql.DependencyInjection" />
+    <ProjectReference Include="..\..\Application\UserService.Application.Abstractions\UserService.Application.Abstractions.csproj" />
+  </ItemGroup>
 </Project>
