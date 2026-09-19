@@ -19,18 +19,21 @@ internal class UserService : IUserService
         _context = context;
     }
 
-    public async Task CreateUserAsync(
+    public async Task<IReadOnlyCollection<User>> CreateUsersAsync(
         CreateUser.Request request,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        await _context.UserRepository.AddUserAsync(
+        var users = await _context.UserRepository.AddUsersAsync(
             request.Users,
-            cancellationToken);
+            cancellationToken)
+            .ToListAsync(cancellationToken: cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
+
+        return users;
     }
 
     public async Task<GetUserById.Result> GetUserByIdAsync(
