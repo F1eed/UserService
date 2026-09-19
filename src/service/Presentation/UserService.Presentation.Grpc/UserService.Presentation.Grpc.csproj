@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <ItemGroup>
-    <ProjectReference Include="..\..\Application\UserService.Application\UserService.Application.csproj"/>
-    <ProjectReference Include="..\..\Application\UserService.Application.Contracts\UserService.Application.Contracts.csproj"/>
-  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
     
   <ItemGroup>
     <Protobuf Include="Protos/users.proto" GrpcServices="Server" />
@@ -10,5 +10,10 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\UserService.Application\UserService.Application.csproj"/>
+    <ProjectReference Include="..\..\Application\UserService.Application.Contracts\UserService.Application.Contracts.csproj"/>
   </ItemGroup>
 </Project>
