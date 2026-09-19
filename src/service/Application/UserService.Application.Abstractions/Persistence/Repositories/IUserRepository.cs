@@ -9,7 +9,7 @@ public interface IUserRepository
         IReadOnlyCollection<User> users,
         CancellationToken cancellationToken);
 
-    Task<User> QueryByIdAsync(
+    Task<User?> QueryByIdAsync(
         UserQueryById query,
         CancellationToken cancellationToken);
 

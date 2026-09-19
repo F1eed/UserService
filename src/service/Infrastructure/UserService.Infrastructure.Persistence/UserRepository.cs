@@ -57,7 +57,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<User> QueryByIdAsync(
+    public async Task<User?> QueryByIdAsync(
         UserQueryById query,
         CancellationToken cancellationToken)
     {
@@ -79,6 +79,11 @@ public class UserRepository : IUserRepository
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("id", userId));
         await using DbDataReader reader = await command.ExecuteReaderAsync(cancellationToken);
+
+        if (await reader.ReadAsync(cancellationToken) is false)
+        {
+            return null;
+        }
 
         return MapReaderToUser(reader);
     }

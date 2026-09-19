@@ -45,8 +45,13 @@ internal class UserService : IUserService
         var query = UserQueryById.Build(builder => builder
             .WithId(request.Id));
 
-        User user = await _context.UserRepository.QueryByIdAsync(
+        User? user = await _context.UserRepository.QueryByIdAsync(
             query, cancellationToken);
+
+        if (user is null)
+        {
+            return new GetUserById.Result.Failure("User not found");
+        }
 
         return new GetUserById.Result.Success(user.MapToDto());
     }
@@ -69,6 +74,11 @@ internal class UserService : IUserService
                            cancellationToken))
         {
             users.Add(user);
+        }
+
+        if (users.Count == 0)
+        {
+            return new GetUserByName.Result.Failure("Users not found.");
         }
 
         return new GetUserByName.Result.Success(
