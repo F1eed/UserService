@@ -9,18 +9,18 @@ option csharp_namespace = "UserService.Presentation.Grpc";
 package users;
 
 service UserService {
-  rpc CreateUser (CreateUserRequest) returns (EmptyResponse);
+  rpc CreateUsers (CreateUsersRequest) returns (EmptyResponse);
   rpc GetUserById (GetUserByIdRequest) returns (GetUserResponse);
-  rpc GetUserByName (GetUserByNameRequest) returns (GetUserResponse);
+  rpc GetUserByName (GetUserByNameRequest) returns (GetUserByNameResponse);
   rpc UpdateUser (UpdateUserRequest) returns (EmptyResponse);
   rpc DeleteUser (DeleteUserRequest) returns (EmptyResponse);
 }
 
-message CreateUserRequest {
-  repeated ProtoUser Users = 1;
+message CreateUsersRequest {
+  repeated CreateUserEntry Entries = 1;
 }
 
-message ProtoUser {
+message CreateUserEntry {
   string login = 1;
   string password = 2;
   string name = 3;
@@ -39,6 +39,10 @@ message GetUserResponse {
 message GetUserByNameRequest {
   string name = 1;
   string surname = 2;
+}
+
+message GetUserByNameResponse {
+  repeated User user = 1;
 }
 
 message UpdateUserRequest {

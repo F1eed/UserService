@@ -13,11 +13,11 @@ public class UserController : UserService.UserServiceBase
         _userService = userService;
     }
 
-    public override async Task<EmptyResponse> CreateUser(
-        CreateUserRequest request,
+    public override async Task<EmptyResponse> CreateUsers(
+        CreateUsersRequest request,
         ServerCallContext context)
     {
-        var users = request.Users.Select(user => new CreateUser.UserEntry(
+        var users = request.Entries.Select(user => new CreateUser.UserEntry(
                 user.Login,
                 user.Password,
                 user.Name,
