@@ -18,6 +18,18 @@ public class UserController : UserService.UserServiceBase
     {
         var users = new List<Application.Contracts.Users.Operations.CreateUser.UserEntry>();
 
-        await _userService.CreateUsersAsync(users, context.CancellationToken);
+        foreach (CreateUser user in request.User)
+        {
+            users.Add(new Application.Contracts.Users.Operations.CreateUser.UserEntry(
+                user.Login,
+                user.Password,
+                user.Name,
+                user.Surname,
+                user.BirthDate.ToDateTime()));
+        }
+
+        var serviceRequest = new CreateUser.Request(users);
+
+        await _userService.CreateUsersAsync(, context.CancellationToken);
     }
 }
