@@ -1,6 +1,5 @@
 ﻿syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 option csharp_namespace = "UserService.Presentation.Grpc";
@@ -8,10 +7,10 @@ option csharp_namespace = "UserService.Presentation.Grpc";
 package users;
 
 service UserService {
-  rpc CreateUsers (CreateUsersRequest) returns (google.protobuf.Empty);
+  rpc CreateUsers (CreateUsersRequest) returns (CreateUsersResponse);
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
   rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
-  rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
   rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
 }
 
@@ -19,12 +18,16 @@ message CreateUsersRequest {
   repeated CreateUserEntry Entries = 1;
 }
 
+message CreateUsersResponse {
+  string reply = 1;
+}
+
 message CreateUserEntry {
   string login = 1;
   string password = 2;
   string name = 3;
   string surname = 4;
-  google.protobuf.Timestamp birth_date = 5;
+  Date birth_date = 5;
 }
 
 message GetUserRequest {
@@ -49,7 +52,11 @@ message UpdateUserRequest {
   optional string password = 2;
   optional string name = 3;
   optional string surname = 4;
-  optional google.protobuf.Timestamp birth_date = 5;
+  Date birth_date = 5;
+}
+
+message UpdateUserResponse {
+  string reply = 1;
 }
 
 message DeleteUserRequest {
@@ -60,5 +67,11 @@ message User {
   string login = 1;
   string name = 2;
   string surname = 3;
-  google.protobuf.Timestamp birth_date = 4;
+  Date birth_date = 4;
+}
+
+message Date {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
 }
