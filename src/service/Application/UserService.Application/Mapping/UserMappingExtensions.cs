@@ -1,4 +1,4 @@
-using UserService.Application.Contracts.Models;
+using UserService.Application.Contracts.Users.Models;
 using UserService.Application.Model.Users;
 
 namespace UserService.Application.Mapping;

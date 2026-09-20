@@ -1,4 +1,4 @@
-﻿using UserService.Application.Contracts.Models;
+﻿using UserService.Application.Contracts.Users.Models;
 
 namespace UserService.Application.Contracts.Users.Operations;
 
