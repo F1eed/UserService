@@ -40,7 +40,7 @@ public static class ServiceCollectionExtensions
                 .WithMigrationsIn(typeof(IAssemblyMarker).Assembly))
             .AddLogging(logging => logging.AddFluentMigratorConsole());
 
-        collection.AddSingleton<IUserRepository, UserRepository>();
+        collection.AddScoped<IUserRepository, UserRepository>();
 
         collection.AddScoped<IPersistenceTransactionProvider, PostgresPersistenceTransactionProvider>();
 
