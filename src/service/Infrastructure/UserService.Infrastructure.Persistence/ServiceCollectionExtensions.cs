@@ -2,7 +2,9 @@ using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UserService.Application.Abstractions.Persistence.Repositories;
+using UserService.Application.Abstractions.Persistence.Transactions;
 using UserService.Infrastructure.Persistence.Options;
+using UserService.Infrastructure.Persistence.Transactions;
 
 namespace UserService.Infrastructure.Persistence;
 
@@ -39,6 +41,8 @@ public static class ServiceCollectionExtensions
             .AddLogging(logging => logging.AddFluentMigratorConsole());
 
         collection.AddSingleton<IUserRepository, UserRepository>();
+
+        collection.AddScoped<IPersistenceTransactionProvider, PostgresPersistenceTransactionProvider>();
 
         return collection;
     }
