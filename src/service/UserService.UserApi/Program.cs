@@ -4,14 +4,14 @@ using UserService.Presentation.Grpc.Extensions;
 
 #pragma warning disable CA1506
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddApplication()
     .AddInfrastructurePersistence(builder.Configuration)
     .AddPresentationGrpc();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseRouting();
 app.UsePresentationGrpc();
