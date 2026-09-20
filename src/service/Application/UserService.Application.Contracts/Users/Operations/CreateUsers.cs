@@ -4,5 +4,5 @@ public static class CreateUsers
 {
     public readonly record struct Request(IReadOnlyCollection<UserEntry> Users);
 
-    public record UserEntry(string Login, string Password, string Name, string Surname, DateTime DateOfBirth);
+    public record UserEntry(string Login, string Password, string Name, string Surname, DateOnly DateOfBirth);
 }

@@ -1,0 +1,14 @@
+namespace UserService.Application.Model.Users.ValueObjects;
+
+public class BirthDate
+{
+    public BirthDate(DateOnly value)
+    {
+        if (value > DateOnly.FromDateTime(DateTime.UtcNow))
+        {
+            throw new ArgumentException("Incorrect date");
+        }
+    }
+
+    public DateOnly Value { get; private set; }
+}

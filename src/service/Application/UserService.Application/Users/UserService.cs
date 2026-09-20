@@ -14,7 +14,9 @@ internal class UserService : IUserService
     private readonly IPersistenceTransactionProvider _transactionProvider;
     private readonly IPersistenceContext _context;
 
-    public UserService(IPersistenceTransactionProvider transactionProvider, IPersistenceContext context)
+    public UserService(
+        IPersistenceTransactionProvider transactionProvider,
+        IPersistenceContext context)
     {
         _transactionProvider = transactionProvider;
         _context = context;
@@ -94,7 +96,7 @@ internal class UserService : IUserService
             users.Select(user => user.MapToDto()).ToList());
     }
 
-    public async Task UpdateUserResultAsync(
+    public async Task UpdateUserAsync(
         UpdateUser.Request request,
         CancellationToken cancellationToken)
     {

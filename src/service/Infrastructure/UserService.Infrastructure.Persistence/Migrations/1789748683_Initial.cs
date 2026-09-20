@@ -16,7 +16,7 @@ public class Initial : Migration
             .WithColumn("user_date_of_birth").AsDateTime()
             .WithColumn("created_at").AsDateTime().NotNullable()
                 .WithDefault(SystemMethods.CurrentDateTimeOffset)
-            .WithColumn("updated_at").AsDateTime().Nullable();
+            .WithColumn("updated_at").AsDate().Nullable();
 
         Execute.Sql("""
         ALTER TABLE users

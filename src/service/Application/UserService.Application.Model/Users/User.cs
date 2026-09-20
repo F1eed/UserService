@@ -5,30 +5,36 @@ namespace UserService.Application.Model.Users;
 public sealed class User
 {
     private User(
-        UserId userId,
-        Login login,
-        Password password,
+        long userId,
+        string login,
+        string password,
         string name,
         string surname,
-        DateTime dateOfBirth)
+        DateOnly dateOfBirth)
     {
-        UserId = userId;
-        Login = login;
-        Password = password;
+        UserId = new UserId(userId);
+        Login = new Login(login);
+        Password = new Password(password);
         Name = name;
         Surname = surname;
-        DateOfBirth = dateOfBirth;
+        DateOfBirth = new BirthDate(dateOfBirth);
     }
 
     public static User CreateFromDb(
-        UserId userId,
-        Login login,
-        Password password,
+        long userId,
+        string login,
+        string password,
         string name,
         string surname,
-        DateTime dateOfBirth)
+        DateOnly dateOfBirth)
     {
-        return new User(userId, login, password, name, surname, dateOfBirth);
+        return new User(
+            userId,
+            login,
+            password,
+            name,
+            surname,
+            dateOfBirth);
     }
 
     public static User CreateFromService(
@@ -36,12 +42,12 @@ public sealed class User
         string password,
         string name,
         string surname,
-        DateTime dateOfBirth)
+        DateOnly dateOfBirth)
     {
         return new User(
-            UserId.Default(),
-            new Login(login),
-            new Password(password),
+            UserId.Default().Value,
+            login,
+            password,
             name,
             surname,
             dateOfBirth);
@@ -57,5 +63,5 @@ public sealed class User
 
     public string Surname { get; }
 
-    public DateTime DateOfBirth { get; }
+    public BirthDate DateOfBirth { get; }
 }

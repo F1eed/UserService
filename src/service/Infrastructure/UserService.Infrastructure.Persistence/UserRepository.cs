@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 using UserService.Application.Abstractions.Persistence.Queries;
 using UserService.Application.Abstractions.Persistence.Repositories;
 using UserService.Application.Model.Users;
-using UserService.Application.Model.Users.ValueObjects;
 
 namespace UserService.Infrastructure.Persistence;
 
@@ -40,7 +39,7 @@ public class UserRepository : IUserRepository
         string[] passwords = [.. users.Select(x => x.Password.Value)];
         string[] names = [.. users.Select(x => x.Name)];
         string[] surnames = [.. users.Select(x => x.Surname)];
-        DateTime[] dates = [.. users.Select(x => x.DateOfBirth)];
+        DateOnly[] dates = [.. users.Select(x => x.DateOfBirth.Value)];
 
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("user_logins", logins));
@@ -139,7 +138,7 @@ public class UserRepository : IUserRepository
         string? name = query.Name;
         string? surname = query.Surname;
         string? password = query.Password;
-        DateTime? dateOfBirth = query.DateOfBirth;
+        DateOnly? dateOfBirth = query.DateOfBirth;
 
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("id", userId));
@@ -172,11 +171,11 @@ public class UserRepository : IUserRepository
     private static User MapReaderToUser(DbDataReader reader)
     {
         return User.CreateFromDb(
-            new UserId(reader.GetInt64("user_id")),
-            new Login(reader.GetString("user_login")),
-            new Password(reader.GetString("user_password")),
+            reader.GetInt64("user_id"),
+            reader.GetString("user_login"),
+            reader.GetString("user_password"),
             reader.GetString("user_name"),
             reader.GetString("user_surname"),
-            reader.GetDateTime("user_date_of_birth"));
+            DateOnly.FromDateTime(reader.GetDateTime("user_date_of_birth")));
     }
 }

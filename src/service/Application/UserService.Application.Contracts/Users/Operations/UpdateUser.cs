@@ -7,5 +7,5 @@ public static class UpdateUser
         string? Password,
         string? Name,
         string? Surname,
-        DateTime? DateOfBirth);
+        DateOnly? DateOfBirth);
 }

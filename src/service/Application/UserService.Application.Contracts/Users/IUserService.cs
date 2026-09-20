@@ -16,7 +16,7 @@ public interface IUserService
         GetUsers.Request request,
         CancellationToken cancellationToken);
 
-    Task UpdateUserResultAsync(
+    Task UpdateUserAsync(
         UpdateUser.Request request,
         CancellationToken cancellationToken);
 
