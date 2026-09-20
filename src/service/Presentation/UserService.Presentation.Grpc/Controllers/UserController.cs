@@ -30,7 +30,9 @@ public class UserController : UserService.UserServiceBase
 
         var serviceRequest = new CreateUsers.Request(users);
 
-        await _userService.CreateUsersAsync(serviceRequest, context.CancellationToken);
+        await _userService.CreateUsersAsync(
+            serviceRequest,
+            context.CancellationToken);
 
         return await Task.FromResult(new Empty());
     }
@@ -97,7 +99,9 @@ public class UserController : UserService.UserServiceBase
     {
         var serviceRequest = new DeleteUser.Request(request.Id);
 
-        await _userService.DeleteUserAsync(serviceRequest, context.CancellationToken);
+        await _userService.DeleteUserAsync(
+            serviceRequest,
+            context.CancellationToken);
 
         return await Task.FromResult(new Empty());
     }
