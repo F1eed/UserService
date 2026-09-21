@@ -15,14 +15,14 @@ service UserService {
 }
 
 message CreateUsersRequest {
-  repeated CreateUserEntry Entries = 1;
+  repeated UserEntry Entries = 1;
 }
 
 message CreateUsersResponse {
-  string reply = 1;
+  repeated User users = 1;
 }
 
-message CreateUserEntry {
+message UserEntry {
   string login = 1;
   string password = 2;
   string name = 3;
@@ -64,10 +64,11 @@ message DeleteUserRequest {
 }
 
 message User {
-  string login = 1;
-  string name = 2;
-  string surname = 3;
-  Date birth_date = 4;
+  int64 id = 1;
+  string login = 2;
+  string name = 3;
+  string surname = 4;
+  Date birth_date = 5;
 }
 
 message Date {
