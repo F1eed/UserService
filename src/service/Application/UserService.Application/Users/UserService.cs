@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using UserService.Application.Abstractions.Persistence;
 using UserService.Application.Abstractions.Persistence.Queries;
+using UserService.Application.Abstractions.Persistence.Repositories;
 using UserService.Application.Abstractions.Persistence.Transactions;
 using UserService.Application.Contracts.Users;
 using UserService.Application.Contracts.Users.Operations;
@@ -22,7 +23,7 @@ internal class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task CreateUsersAsync(
+    public async Task<CreateUsers.Result> CreateUsersAsync(
         CreateUsers.Request request,
         CancellationToken cancellationToken)
     {
@@ -38,12 +39,13 @@ internal class UserService : IUserService
                 x.DateOfBirth))
             .ToList();
 
-        await _context.UserRepository.AddUsersAsync(
-                users,
-                cancellationToken)
+        List<User> result = await _userRepository
+            .AddUsersAsync(users, cancellationToken)
             .ToListAsync(cancellationToken: cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
+
+        return new CreateUsers.Result.Success([.. result.Select(x => x.MapToDto())]);
     }
 
     public async Task<GetUser.Result> GetUserAsync(
