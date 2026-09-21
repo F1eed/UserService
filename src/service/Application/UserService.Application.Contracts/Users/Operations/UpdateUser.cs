@@ -8,4 +8,13 @@ public static class UpdateUser
         string? Name,
         string? Surname,
         DateOnly? DateOfBirth);
+
+    public abstract record Result
+    {
+        private Result() { }
+
+        public sealed record Success(string SuccessMessage) : Result;
+
+        public sealed record Failure(string ErrorMessage) : Result;
+    }
 }

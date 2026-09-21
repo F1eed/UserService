@@ -4,7 +4,7 @@ namespace UserService.Application.Contracts.Users;
 
 public interface IUserService
 {
-    Task CreateUsersAsync(
+    Task<CreateUsers.Result> CreateUsersAsync(
         CreateUsers.Request request,
         CancellationToken cancellationToken);
 
@@ -16,7 +16,7 @@ public interface IUserService
         GetUsers.Request request,
         CancellationToken cancellationToken);
 
-    Task UpdateUserAsync(
+    Task<UpdateUser.Result> UpdateUserAsync(
         UpdateUser.Request request,
         CancellationToken cancellationToken);
 
