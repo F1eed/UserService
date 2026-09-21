@@ -19,4 +19,4 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: is-oop-y29/actions@master
+      - uses: is-tnsod-26/actions@master
