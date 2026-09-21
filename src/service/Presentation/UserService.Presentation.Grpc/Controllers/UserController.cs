@@ -16,25 +16,43 @@ public class UserController : UserService.UserServiceBase
         _userService = userService;
     }
 
-    public override async Task<Empty> CreateUsers(
+    public override async Task<CreateUsersResponse> CreateUsers(
         CreateUsersRequest request,
         ServerCallContext context)
     {
-        var users = request.Entries.Select(user => new CreateUsers.UserEntry(
-                user.Login,
-                user.Password,
-                user.Name,
-                user.Surname,
-                user.BirthDate.ToDateTime()))
+        var users = request.Entries.Select(user =>
+            {
+                DateOnly? birthDate = user.BirthDate is null
+                    ? null
+                    : new DateOnly(user.BirthDate.Year, user.BirthDate.Month, user.BirthDate.Day);
+
+                return new CreateUsers.UserEntry(
+                    user.Login,
+                    user.Password,
+                    user.Name,
+                    user.Surname,
+                    birthDate);
+            })
             .ToList();
 
         var serviceRequest = new CreateUsers.Request(users);
 
-        await _userService.CreateUsersAsync(
+        CreateUsers.Result response = await _userService.CreateUsersAsync(
             serviceRequest,
             context.CancellationToken);
 
-        return await Task.FromResult(new Empty());
+        if (response is CreateUsers.Result.Success success)
+        {
+            return new CreateUsersResponse
+            {
+                Users =
+                {
+                    success.Users.Select(x => x.MapToProto()),
+                },
+            };
+        }
+
+        throw new UnreachableException();
     }
 
     public override async Task<GetUserResponse> GetUser(
@@ -86,11 +104,37 @@ public class UserController : UserService.UserServiceBase
         };
     }
 
-    public override Task<Empty> UpdateUser(
+    public override async Task<UpdateUserResponse> UpdateUser(
         UpdateUserRequest request,
         ServerCallContext context)
     {
-        throw new NotImplementedException();
+        DateOnly? birthDate = request.BirthDate is null
+            ? null
+            : new DateOnly(
+                request.BirthDate.Year,
+                request.BirthDate.Month,
+                request.BirthDate.Day);
+
+        var serviceRequest = new UpdateUser.Request(
+            request.Id,
+            request.HasPassword ? request.Password : null,
+            request.HasName ? request.Name : null,
+            request.HasSurname ? request.Surname : null,
+            birthDate);
+
+        UpdateUser.Result response = await _userService.UpdateUserAsync(
+            serviceRequest,
+            context.CancellationToken);
+
+        if (response is UpdateUser.Result.Success success)
+        {
+            return new UpdateUserResponse
+            {
+                Reply = success.SuccessMessage,
+            };
+        }
+
+        throw new UnreachableException();
     }
 
     public override async Task<Empty> DeleteUser(

@@ -10,14 +10,14 @@ public sealed class User
         string password,
         string name,
         string surname,
-        DateOnly dateOfBirth)
+        DateOnly? dateOfBirth)
     {
         UserId = new UserId(userId);
         Login = new Login(login);
         Password = new Password(password);
         Name = name;
         Surname = surname;
-        DateOfBirth = new BirthDate(dateOfBirth);
+        DateOfBirth = dateOfBirth is null ? null : new BirthDate(dateOfBirth);
     }
 
     public static User CreateFromDb(
@@ -26,7 +26,7 @@ public sealed class User
         string password,
         string name,
         string surname,
-        DateOnly dateOfBirth)
+        DateOnly? dateOfBirth)
     {
         return new User(
             userId,
@@ -42,7 +42,7 @@ public sealed class User
         string password,
         string name,
         string surname,
-        DateOnly dateOfBirth)
+        DateOnly? dateOfBirth)
     {
         return new User(
             UserId.Default().Value,
@@ -50,7 +50,7 @@ public sealed class User
             password,
             name,
             surname,
-            dateOfBirth);
+            dateOfBirth is null ? null : dateOfBirth);
     }
 
     public UserId UserId { get; }
@@ -63,5 +63,5 @@ public sealed class User
 
     public string Surname { get; }
 
-    public BirthDate DateOfBirth { get; }
+    public BirthDate? DateOfBirth { get; }
 }
