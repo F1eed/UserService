@@ -1,12 +1,15 @@
+using Itmo.HighLoad.Application.Abstractions.Persistence.Repositories;
+using Itmo.HighLoad.Application.Model.Users;
 using Npgsql;
 using System.Data;
 using System.Data.Common;
 using System.Runtime.CompilerServices;
-using UserService.Application.Abstractions.Persistence.Queries;
-using UserService.Application.Abstractions.Persistence.Repositories;
-using UserService.Application.Model.Users;
+using UserDeleteQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserDeleteQuery;
+using UserQueryById = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserQueryById;
+using UserQueryByNameAndSurname = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserQueryByNameAndSurname;
+using UserUpdateQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserUpdateQuery;
 
-namespace UserService.Infrastructure.Persistence;
+namespace Itmo.HighLoad.Infrastructure.Persistence;
 
 public class UserRepository : IUserRepository
 {
@@ -70,7 +73,7 @@ public class UserRepository : IUserRepository
             user_surname,
             user_date_of_birth
         FROM users
-        WHERE (cardinality(:id) OR user_id = ANY(:id))
+        WHERE (user_id = :id)
         """;
 
         long userId = query.Id;
@@ -118,7 +121,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task UpdateUserAsync(
+    public async Task<bool> UpdateUserAsync(
         UserUpdateQuery query,
         CancellationToken cancellationToken)
     {
@@ -142,12 +145,12 @@ public class UserRepository : IUserRepository
 
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("id", userId));
-        command.Parameters.Add(new NpgsqlParameter("name", name));
-        command.Parameters.Add(new NpgsqlParameter("surname", surname));
-        command.Parameters.Add(new NpgsqlParameter("password", password));
-        command.Parameters.Add(new NpgsqlParameter("date_of_birth", dateOfBirth));
+        command.Parameters.Add(new NpgsqlParameter<string?>("name", name));
+        command.Parameters.Add(new NpgsqlParameter<string?>("surname", surname));
+        command.Parameters.Add(new NpgsqlParameter<string?>("password", password));
+        command.Parameters.Add(new NpgsqlParameter<DateOnly?>("date_of_birth", dateOfBirth));
 
-        await command.ExecuteNonQueryAsync(cancellationToken);
+        return await command.ExecuteNonQueryAsync(cancellationToken) > 0;
     }
 
     public async Task DeleteUserAsync(
@@ -170,12 +173,18 @@ public class UserRepository : IUserRepository
 
     private static User MapReaderToUser(DbDataReader reader)
     {
+        int birthDateOrdinal = reader.GetOrdinal("user_date_of_birth");
+
+        DateOnly? birthDate = reader.IsDBNull(birthDateOrdinal)
+            ? null
+            : DateOnly.FromDateTime(reader.GetDateTime("user_date_of_birth"));
+
         return User.CreateFromDb(
             reader.GetInt64("user_id"),
             reader.GetString("user_login"),
             reader.GetString("user_password"),
             reader.GetString("user_name"),
             reader.GetString("user_surname"),
-            DateOnly.FromDateTime(reader.GetDateTime("user_date_of_birth")));
+            birthDate);
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Transactions;
-using UserService.Application.Abstractions.Persistence.Transactions;
+﻿using Itmo.HighLoad.Application.Abstractions.Persistence.Transactions;
+using System.Transactions;
 
-namespace UserService.Infrastructure.Persistence.Transactions;
+namespace Itmo.HighLoad.Infrastructure.Persistence.Transactions;
 
 internal class PostgresPersistenceTransaction : IPersistenceTransaction
 {

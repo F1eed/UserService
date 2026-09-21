@@ -1,6 +1,6 @@
-﻿using UserService.Application.Contracts.Users.Operations;
+﻿using Itmo.HighLoad.Application.Contracts.Users.Operations;
 
-namespace UserService.Application.Contracts.Users;
+namespace Itmo.HighLoad.Application.Contracts.Users;
 
 public interface IUserService
 {

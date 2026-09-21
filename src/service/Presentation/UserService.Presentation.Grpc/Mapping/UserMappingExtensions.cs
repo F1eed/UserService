@@ -1,6 +1,7 @@
-using UserService.Application.Contracts.Users.Models;
+using Itmo.HighLoad.Application.Contracts.Users.Models;
+using UserService.Presentation.Grpc;
 
-namespace UserService.Presentation.Grpc.Mapping;
+namespace Itmo.HighLoad.Presentation.Grpc.Mapping;
 
 public static class UserMappingExtensions
 {

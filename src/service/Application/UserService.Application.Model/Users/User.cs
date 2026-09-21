@@ -1,6 +1,6 @@
-﻿using UserService.Application.Model.Users.ValueObjects;
+﻿using Itmo.HighLoad.Application.Model.Users.ValueObjects;
 
-namespace UserService.Application.Model.Users;
+namespace Itmo.HighLoad.Application.Model.Users;
 
 public sealed class User
 {
@@ -50,7 +50,7 @@ public sealed class User
             password,
             name,
             surname,
-            dateOfBirth is null ? null : dateOfBirth);
+            dateOfBirth);
     }
 
     public UserId UserId { get; }

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using UserService.Presentation.Grpc.Interceptors;
-using UserService.Presentation.Grpc.Validation;
+using Itmo.HighLoad.Presentation.Grpc.Interceptors;
+using Itmo.HighLoad.Presentation.Grpc.Validation;
 
-namespace UserService.Presentation.Grpc.Extensions;
+namespace Itmo.HighLoad.Presentation.Grpc.Extensions;
 
 public static class ServiceCollectionExtensions
 {

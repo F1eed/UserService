@@ -1,7 +1,7 @@
-using UserService.Application.Contracts.Users.Models;
-using UserService.Application.Model.Users;
+using Itmo.HighLoad.Application.Contracts.Users.Models;
+using Itmo.HighLoad.Application.Model.Users;
 
-namespace UserService.Application.Mapping;
+namespace Itmo.HighLoad.Application.Mapping;
 
 public static class UserMappingExtensions
 {

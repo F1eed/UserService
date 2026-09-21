@@ -1,13 +1,13 @@
-﻿using System.Data;
-using UserService.Application.Abstractions.Persistence.Queries;
-using UserService.Application.Abstractions.Persistence.Repositories;
-using UserService.Application.Abstractions.Persistence.Transactions;
-using UserService.Application.Contracts.Users;
-using UserService.Application.Contracts.Users.Operations;
-using UserService.Application.Mapping;
-using UserService.Application.Model.Users;
+﻿using Itmo.HighLoad.Application.Abstractions.Persistence.Queries;
+using Itmo.HighLoad.Application.Abstractions.Persistence.Repositories;
+using Itmo.HighLoad.Application.Abstractions.Persistence.Transactions;
+using Itmo.HighLoad.Application.Contracts.Users;
+using Itmo.HighLoad.Application.Contracts.Users.Operations;
+using Itmo.HighLoad.Application.Mapping;
+using Itmo.HighLoad.Application.Model.Users;
+using System.Data;
 
-namespace UserService.Application.Users;
+namespace Itmo.HighLoad.Application.Users;
 
 internal class UserService : IUserService
 {
@@ -105,7 +105,10 @@ internal class UserService : IUserService
             .WithSurname(request.Surname)
             .WithDateOfBirth(request.DateOfBirth));
 
-        await _userRepository.UpdateUserAsync(query, cancellationToken);
+        if (await _userRepository.UpdateUserAsync(query, cancellationToken) is false)
+        {
+            return new UpdateUser.Result.NotFound();
+        }
 
         await transaction.CommitAsync(cancellationToken);
 

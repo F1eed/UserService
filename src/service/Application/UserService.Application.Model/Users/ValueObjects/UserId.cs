@@ -1,4 +1,4 @@
-namespace UserService.Application.Model.Users.ValueObjects;
+namespace Itmo.HighLoad.Application.Model.Users.ValueObjects;
 
 public class UserId
 {

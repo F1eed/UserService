@@ -1,6 +1,6 @@
-﻿using UserService.Presentation.Grpc.Controllers;
+﻿using Itmo.HighLoad.Presentation.Grpc.Controllers;
 
-namespace UserService.Presentation.Grpc.Extensions;
+namespace Itmo.HighLoad.Presentation.Grpc.Extensions;
 
 public static class WebApplicationExtensions
 {

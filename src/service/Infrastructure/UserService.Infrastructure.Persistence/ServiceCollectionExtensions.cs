@@ -1,12 +1,12 @@
 using FluentMigrator.Runner;
+using Itmo.HighLoad.Application.Abstractions.Persistence.Repositories;
+using Itmo.HighLoad.Application.Abstractions.Persistence.Transactions;
+using Itmo.HighLoad.Infrastructure.Persistence.Options;
+using Itmo.HighLoad.Infrastructure.Persistence.Transactions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UserService.Application.Abstractions.Persistence.Repositories;
-using UserService.Application.Abstractions.Persistence.Transactions;
-using UserService.Infrastructure.Persistence.Options;
-using UserService.Infrastructure.Persistence.Transactions;
 
-namespace UserService.Infrastructure.Persistence;
+namespace Itmo.HighLoad.Infrastructure.Persistence;
 
 public static class ServiceCollectionExtensions
 {

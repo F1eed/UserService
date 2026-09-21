@@ -1,4 +1,6 @@
-namespace UserService.Presentation.Grpc.Mapping;
+using UserService.Presentation.Grpc;
+
+namespace Itmo.HighLoad.Presentation.Grpc.Mapping;
 
 public static class BirthDateMappingExtension
 {

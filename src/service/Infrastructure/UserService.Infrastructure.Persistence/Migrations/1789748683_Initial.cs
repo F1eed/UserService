@@ -1,6 +1,6 @@
 using FluentMigrator;
 
-namespace UserService.Infrastructure.Persistence.Migrations;
+namespace Itmo.HighLoad.Infrastructure.Persistence.Migrations;
 
 [Migration(1789748683, "Initial")]
 public class Initial : Migration

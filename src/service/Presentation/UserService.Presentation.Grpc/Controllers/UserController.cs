@@ -1,13 +1,14 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Itmo.HighLoad.Application.Contracts.Users;
+using Itmo.HighLoad.Application.Contracts.Users.Operations;
+using Itmo.HighLoad.Presentation.Grpc.Mapping;
 using System.Diagnostics;
-using UserService.Application.Contracts.Users;
-using UserService.Application.Contracts.Users.Operations;
-using UserService.Presentation.Grpc.Mapping;
+using UserService.Presentation.Grpc;
 
-namespace UserService.Presentation.Grpc.Controllers;
+namespace Itmo.HighLoad.Presentation.Grpc.Controllers;
 
-public class UserController : UserService.UserServiceBase
+public class UserController : UserService.Presentation.Grpc.UserService.UserServiceBase
 {
     private readonly IUserService _userService;
 
@@ -132,6 +133,11 @@ public class UserController : UserService.UserServiceBase
             {
                 Reply = success.SuccessMessage,
             };
+        }
+
+        if (response is UpdateUser.Result.NotFound)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
         }
 
         throw new UnreachableException();

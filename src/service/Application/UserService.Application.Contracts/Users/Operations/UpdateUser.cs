@@ -1,4 +1,4 @@
-﻿namespace UserService.Application.Contracts.Users.Operations;
+﻿namespace Itmo.HighLoad.Application.Contracts.Users.Operations;
 
 public static class UpdateUser
 {
@@ -15,6 +15,6 @@ public static class UpdateUser
 
         public sealed record Success(string SuccessMessage) : Result;
 
-        public sealed record Failure(string ErrorMessage) : Result;
+        public sealed record NotFound : Result;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace UserService.Application.Abstractions.Persistence.Transactions;
+namespace Itmo.HighLoad.Application.Abstractions.Persistence.Transactions;
 
 public interface IPersistenceTransactionProvider
 {

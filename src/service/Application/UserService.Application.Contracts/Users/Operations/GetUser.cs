@@ -1,6 +1,6 @@
-﻿using UserService.Application.Contracts.Users.Models;
+﻿using Itmo.HighLoad.Application.Contracts.Users.Models;
 
-namespace UserService.Application.Contracts.Users.Operations;
+namespace Itmo.HighLoad.Application.Contracts.Users.Operations;
 
 public static class GetUser
 {

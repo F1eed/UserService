@@ -1,7 +1,7 @@
 using FluentMigrator.Runner;
-using UserService.Application;
-using UserService.Infrastructure.Persistence;
-using UserService.Presentation.Grpc.Extensions;
+using Itmo.HighLoad.Application;
+using Itmo.HighLoad.Infrastructure.Persistence;
+using Itmo.HighLoad.Presentation.Grpc.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,7 @@
 using FluentValidation;
+using UserService.Presentation.Grpc;
 
-namespace UserService.Presentation.Grpc.Validation;
+namespace Itmo.HighLoad.Presentation.Grpc.Validation;
 
 public class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
 {

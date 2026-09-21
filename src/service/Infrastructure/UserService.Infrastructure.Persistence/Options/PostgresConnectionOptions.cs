@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UserService.Infrastructure.Persistence.Options;
+namespace Itmo.HighLoad.Infrastructure.Persistence.Options;
 
 public sealed class PostgresConnectionOptions
 {

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
+    <RootNamespace>Itmo.HighLoad.Presentation.Grpc</RootNamespace>
   </PropertyGroup>
     
   <ItemGroup>

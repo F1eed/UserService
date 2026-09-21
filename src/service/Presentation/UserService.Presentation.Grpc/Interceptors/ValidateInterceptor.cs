@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 
-namespace UserService.Presentation.Grpc.Interceptors;
+namespace Itmo.HighLoad.Presentation.Grpc.Interceptors;
 
 public sealed partial class ValidateInterceptor : Interceptor
 {

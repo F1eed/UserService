@@ -1,3 +1,3 @@
-namespace UserService.Application.Contracts.Users.Models;
+namespace Itmo.HighLoad.Application.Contracts.Users.Models;
 
 public record UserDto(long UserId, string Login, string Name, string Surname, DateOnly? DateOfBirth);

@@ -1,4 +1,4 @@
-﻿namespace UserService.Application.Abstractions.Persistence.Transactions;
+﻿namespace Itmo.HighLoad.Application.Abstractions.Persistence.Transactions;
 
 public interface IPersistenceTransaction : IAsyncDisposable
 {

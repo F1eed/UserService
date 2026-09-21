@@ -1,7 +1,8 @@
-using UserService.Application.Abstractions.Persistence.Queries;
-using UserService.Application.Model.Users;
+using Itmo.HighLoad.Application.Abstractions.Persistence.Queries;
+using Itmo.HighLoad.Application.Model.Users;
+using UserDeleteQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserDeleteQuery;
 
-namespace UserService.Application.Abstractions.Persistence.Repositories;
+namespace Itmo.HighLoad.Application.Abstractions.Persistence.Repositories;
 
 public interface IUserRepository
 {
@@ -17,7 +18,7 @@ public interface IUserRepository
         UserQueryByNameAndSurname query,
         CancellationToken cancellationToken);
 
-    Task UpdateUserAsync(
+    Task<bool> UpdateUserAsync(
         UserUpdateQuery query,
         CancellationToken cancellationToken);
 
