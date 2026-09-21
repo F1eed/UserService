@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option csharp_namespace = "Itmo.HighLoad.RateLimiter.Writer";
+
+package writer;
+
+service Writer {
+  
+}

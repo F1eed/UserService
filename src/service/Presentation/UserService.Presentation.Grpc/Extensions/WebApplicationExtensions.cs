@@ -1,4 +1,5 @@
 ﻿using Itmo.HighLoad.Presentation.Grpc.Controllers;
+using Microsoft.AspNetCore.Builder;
 
 namespace Itmo.HighLoad.Presentation.Grpc.Extensions;
 

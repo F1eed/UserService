@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Itmo.HighLoad.Presentation.Grpc.Interceptors;
 using Itmo.HighLoad.Presentation.Grpc.Validation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Itmo.HighLoad.Presentation.Grpc.Extensions;
 

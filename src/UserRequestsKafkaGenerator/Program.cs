@@ -1,0 +1,1 @@
+﻿Console.WriteLine("Kafka Messages Generator");

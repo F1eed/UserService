@@ -1,5 +1,6 @@
 using Grpc.Core;
 using Grpc.Core.Interceptors;
+using Microsoft.Extensions.Logging;
 
 namespace Itmo.HighLoad.Presentation.Grpc.Interceptors;
 

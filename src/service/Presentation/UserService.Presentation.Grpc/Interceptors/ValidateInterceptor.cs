@@ -2,6 +2,8 @@ using FluentValidation;
 using FluentValidation.Results;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Itmo.HighLoad.Presentation.Grpc.Interceptors;
 
