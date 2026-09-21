@@ -9,12 +9,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore"/>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Grpc.AspNetCore" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\UserService.Application\UserService.Application.csproj"/>
-    <ProjectReference Include="..\..\Application\UserService.Application.Contracts\UserService.Application.Contracts.csproj"/>
+    <ProjectReference Include="..\..\Application\UserService.Application\UserService.Application.csproj" />
+    <ProjectReference Include="..\..\Application\UserService.Application.Contracts\UserService.Application.Contracts.csproj" />
   </ItemGroup>
 </Project>
