@@ -13,10 +13,10 @@ public class Initial : Migration
             .WithColumn("user_password").AsString().NotNullable()
             .WithColumn("user_name").AsString().NotNullable()
             .WithColumn("user_surname").AsString().NotNullable()
-            .WithColumn("user_date_of_birth").AsDateTime()
+            .WithColumn("user_date_of_birth").AsDate().Nullable()
             .WithColumn("created_at").AsDateTime().NotNullable()
                 .WithDefault(SystemMethods.CurrentDateTimeOffset)
-            .WithColumn("updated_at").AsDate().Nullable();
+            .WithColumn("updated_at").AsDateTime().Nullable();
 
         Execute.Sql("""
         ALTER TABLE users
