@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using UserService.Application.Abstractions.Persistence;
 using UserService.Application.Abstractions.Persistence.Queries;
 using UserService.Application.Abstractions.Persistence.Repositories;
 using UserService.Application.Abstractions.Persistence.Transactions;
@@ -92,7 +91,7 @@ internal class UserService : IUserService
         return new GetUsers.Result.Success([.. users.Select(user => user.MapToDto())]);
     }
 
-    public async Task UpdateUserAsync(
+    public async Task<UpdateUser.Result> UpdateUserAsync(
         UpdateUser.Request request,
         CancellationToken cancellationToken)
     {
@@ -106,11 +105,11 @@ internal class UserService : IUserService
             .WithSurname(request.Surname)
             .WithDateOfBirth(request.DateOfBirth));
 
-        await _context.UserRepository.UpdateUserAsync(
-            query,
-            cancellationToken);
+        await _userRepository.UpdateUserAsync(query, cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
+
+        return new UpdateUser.Result.Success("User updated successfully");
     }
 
     public async Task DeleteUserAsync(
@@ -123,9 +122,7 @@ internal class UserService : IUserService
         var query = UserDeleteQuery.Build(builder => builder
             .WithId(request.Id));
 
-        await _context.UserRepository.DeleteUserAsync(
-            query,
-            cancellationToken);
+        await _userRepository.DeleteUserAsync(query, cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
     }
