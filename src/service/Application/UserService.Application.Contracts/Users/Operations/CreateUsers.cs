@@ -1,8 +1,17 @@
-﻿namespace UserService.Application.Contracts.Users.Operations;
+﻿using UserService.Application.Contracts.Users.Models;
+
+namespace UserService.Application.Contracts.Users.Operations;
 
 public static class CreateUsers
 {
     public readonly record struct Request(IReadOnlyCollection<UserEntry> Users);
 
-    public record UserEntry(string Login, string Password, string Name, string Surname, DateOnly DateOfBirth);
+    public abstract record Result
+    {
+        private Result() { }
+
+        public sealed record Success(IReadOnlyCollection<UserDto> Users) : Result;
+    }
+
+    public record UserEntry(string Login, string Password, string Name, string Surname, DateOnly? DateOfBirth);
 }
