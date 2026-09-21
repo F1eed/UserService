@@ -1,6 +1,6 @@
 using Grpc.Core;
 
-namespace RateLimiter.Reader.Controllers;
+namespace Itmo.HighLoad.RateLimiter.Reader.Controllers;
 
 public class ExampleController : Reader.ReaderBase
 {
@@ -8,7 +8,7 @@ public class ExampleController : Reader.ReaderBase
     {
         return Task.FromResult(new PingResponse
         {
-            Status = "Alive"
+            Status = "Alive",
         });
     }
 }

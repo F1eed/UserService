@@ -1,4 +1,4 @@
-﻿<Solution>
+<Solution>
     <Folder Name="/common/">
         <File Path="Directory.Packages.props" />
         <File Path="Directory.Build.props" />
@@ -16,5 +16,10 @@
     </Folder>
     <Folder Name="/service/Presentation/">
         <Project Path="src/service/Presentation/UserService.Presentation.Grpc/UserService.Presentation.Grpc.csproj" />
+    </Folder>
+    <Folder Name="/src/">
+        <Project Path="src/RateLimiter.Reader/RateLimiter.Reader.csproj" />
+        <Project Path="src/RateLimiter.Writer/RateLimiter.Writer.csproj" />
+        <Project Path="src/UserRequestsKafkaGenerator/UserRequestsKafkaGenerator.csproj" />
     </Folder>
 </Solution>

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "RateLimiter.Reader";
+option csharp_namespace = "Itmo.HighLoad.RateLimiter.Reader";
 
 package reader;
 

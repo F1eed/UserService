@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Protos\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
