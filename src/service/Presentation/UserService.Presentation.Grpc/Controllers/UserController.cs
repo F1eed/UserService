@@ -17,7 +17,7 @@ public class UserController : UserService.Presentation.Grpc.UserService.UserServ
         _userService = userService;
     }
 
-    public override async Task<CreateUsersResponse> CreateUsers(
+    public override async Task<CreateUsersResponse> CreateUsersController(
         CreateUsersRequest request,
         ServerCallContext context)
     {
@@ -56,7 +56,7 @@ public class UserController : UserService.Presentation.Grpc.UserService.UserServ
         throw new UnreachableException();
     }
 
-    public override async Task<GetUserResponse> GetUser(
+    public override async Task<GetUserResponse> GetUserController(
         GetUserRequest request,
         ServerCallContext context)
     {
@@ -80,7 +80,7 @@ public class UserController : UserService.Presentation.Grpc.UserService.UserServ
         };
     }
 
-    public override async Task<GetUsersResponse> GetUsers(
+    public override async Task<GetUsersResponse> GetUsersController(
         GetUsersRequest request,
         ServerCallContext context)
     {
@@ -105,7 +105,7 @@ public class UserController : UserService.Presentation.Grpc.UserService.UserServ
         };
     }
 
-    public override async Task<UpdateUserResponse> UpdateUser(
+    public override async Task<UpdateUserResponse> UpdateUserController(
         UpdateUserRequest request,
         ServerCallContext context)
     {
@@ -123,27 +123,25 @@ public class UserController : UserService.Presentation.Grpc.UserService.UserServ
             request.HasSurname ? request.Surname : null,
             birthDate);
 
-        UpdateUser.Result response = await _userService.UpdateUserAsync(
+        UpdateUser.Result serviceResult = await _userService.UpdateUserAsync(
             serviceRequest,
             context.CancellationToken);
 
-        if (response is UpdateUser.Result.Success success)
+        return serviceResult switch
         {
-            return new UpdateUserResponse
+            UpdateUser.Result.Success success => new UpdateUserResponse
             {
                 Reply = success.SuccessMessage,
-            };
-        }
+            },
 
-        if (response is UpdateUser.Result.NotFound)
-        {
-            throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
-        }
+            UpdateUser.Result.NotFound =>
+                throw new RpcException(new Status(StatusCode.NotFound, "User not found")),
 
-        throw new UnreachableException();
+            _ => throw new UnreachableException(),
+        };
     }
 
-    public override async Task<Empty> DeleteUser(
+    public override async Task<Empty> DeleteUserController(
         DeleteUserRequest request,
         ServerCallContext context)
     {

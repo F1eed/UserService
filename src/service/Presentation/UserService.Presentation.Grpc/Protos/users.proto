@@ -7,11 +7,11 @@ option csharp_namespace = "UserService.Presentation.Grpc";
 package users;
 
 service UserService {
-  rpc CreateUsers (CreateUsersRequest) returns (CreateUsersResponse);
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
-  rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
-  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
-  rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty);
+  rpc CreateUsersController (CreateUsersRequest) returns (CreateUsersResponse);
+  rpc GetUserController (GetUserRequest) returns (GetUserResponse);
+  rpc GetUsersController (GetUsersRequest) returns (GetUsersResponse);
+  rpc UpdateUserController (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUserController (DeleteUserRequest) returns (google.protobuf.Empty);
 }
 
 message CreateUsersRequest {
