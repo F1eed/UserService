@@ -5,6 +5,8 @@ public class UserId
     public UserId(long value)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(value);
+
+        Value = value;
     }
 
     public static UserId Default()
