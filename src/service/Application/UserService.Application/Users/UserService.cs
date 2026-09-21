@@ -76,15 +76,12 @@ internal class UserService : IUserService
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var query = UserQueryByNameAndSurname.Build(builder => builder
-            .WithName(request.Name)
+        var query = UserQueryByNameAndSurname.Build(builder => builder.WithName(request.Name)
             .WithSurname(request.Surname));
 
         List<User> users = [];
 
-        await foreach (User user in _context.UserRepository.QueryByNameAndSurnameAsync(
-                           query,
-                           cancellationToken))
+        await foreach (User user in _userRepository.QueryByNameAndSurnameAsync(query, cancellationToken))
         {
             users.Add(user);
         }
@@ -94,8 +91,7 @@ internal class UserService : IUserService
             return new GetUsers.Result.Failure("Users not found.");
         }
 
-        return new GetUsers.Result.Success(
-            users.Select(user => user.MapToDto()).ToList());
+        return new GetUsers.Result.Success([.. users.Select(user => user.MapToDto())]);
     }
 
     public async Task UpdateUserAsync(
