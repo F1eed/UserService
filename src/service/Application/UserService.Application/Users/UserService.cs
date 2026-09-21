@@ -55,11 +55,9 @@ internal class UserService : IUserService
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var query = UserQueryById.Build(builder => builder
-            .WithId(request.Id));
+        var query = UserQueryById.Build(builder => builder.WithId(request.Id));
 
-        User? user = await _context.UserRepository.QueryByIdAsync(
-            query, cancellationToken);
+        User? user = await _userRepository.QueryByIdAsync(query, cancellationToken);
 
         if (user is null)
         {
