@@ -12,14 +12,14 @@ namespace UserService.Application.Users;
 internal class UserService : IUserService
 {
     private readonly IPersistenceTransactionProvider _transactionProvider;
-    private readonly IPersistenceContext _context;
+    private readonly IUserRepository _userRepository;
 
     public UserService(
         IPersistenceTransactionProvider transactionProvider,
-        IPersistenceContext context)
+        IUserRepository userRepository)
     {
         _transactionProvider = transactionProvider;
-        _context = context;
+        _userRepository = userRepository;
     }
 
     public async Task CreateUsersAsync(
