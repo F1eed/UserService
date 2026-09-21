@@ -30,7 +30,7 @@ public class UserRepository : IUserRepository
             .OpenConnectionAsync(cancellationToken);
 
         const string sql = """
-        INSERT INTO user (user_login, user_password, user_name, user_surname, user_date_of_birth)
+        INSERT INTO users (user_login, user_password, user_name, user_surname, user_date_of_birth)
         SELECT * FROM UNNEST(:user_logins, :user_passwords, :user_names, :user_surnames, :users_date_of_birth)
         RETURNING user_id, user_login, user_password, user_name, user_surname, user_date_of_birth
         """;
@@ -39,7 +39,7 @@ public class UserRepository : IUserRepository
         string[] passwords = [.. users.Select(x => x.Password.Value)];
         string[] names = [.. users.Select(x => x.Name)];
         string[] surnames = [.. users.Select(x => x.Surname)];
-        DateOnly[] dates = [.. users.Select(x => x.DateOfBirth.Value)];
+        DateOnly?[] dates = [.. users.Select(x => x.DateOfBirth?.Value)];
 
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("user_logins", logins));
