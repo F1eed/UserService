@@ -14,15 +14,11 @@ public static class ServiceCollectionExtensions
         this IServiceCollection collection,
         IConfiguration configuration)
     {
-        collection.AddOptions<PostgresConnectionOptions>()
-            .BindConfiguration("Infrastructure:Persistence:Postgres")
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
         IConfigurationSection postgresSection = configuration.GetSection("Infrastructure:Persistence:Postgres");
 
         collection.AddOptions<PostgresConnectionOptions>()
             .BindConfiguration("Infrastructure:Persistence:Postgres")
+            .ValidateDataAnnotations()
             .ValidateOnStart();
 
         PostgresConnectionOptions postgresOptions = postgresSection.Get<PostgresConnectionOptions>()
