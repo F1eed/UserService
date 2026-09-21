@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option csharp_namespace = "RateLimiter.Writer";
+
+package writer;
+
+service Writer {
+  
+}

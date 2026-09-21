@@ -1,0 +1,10 @@
+workspace:
+  id: 8b5fffef-a234-4025-82d2-8923d05d2993
+localResources:
+  specs:
+    - ../RateLimiter.Reader/Protos/reader-service.proto
+    - ../RateLimiter.Writer/Protos/writer-service.proto
+resourceNameMappings:
+  specs:
+    - ../RateLimiter.Reader/Protos/reader-service.proto: reader-service.proto
+    - ../RateLimiter.Writer/Protos/writer-service.proto: writer-service.proto
