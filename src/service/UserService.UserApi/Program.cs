@@ -1,8 +1,7 @@
+using FluentMigrator.Runner;
 using UserService.Application;
 using UserService.Infrastructure.Persistence;
 using UserService.Presentation.Grpc.Extensions;
-
-#pragma warning disable CA1506
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +12,13 @@ builder.Services
 
 WebApplication app = builder.Build();
 
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    IMigrationRunner runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+    runner.MigrateUp();
+}
+
 app.UseRouting();
 app.UsePresentationGrpc();
 
-app.Run();
+await app.RunAsync();
