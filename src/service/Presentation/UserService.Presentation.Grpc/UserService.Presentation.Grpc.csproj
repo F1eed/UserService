@@ -1,12 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
 
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Itmo.HighLoad.Presentation.Grpc</RootNamespace>
+  </PropertyGroup>
+    
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore"/>
+    <Protobuf Include="Protos/users.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Protos\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\UserService.Application\UserService.Application.csproj" />
+    <ProjectReference Include="..\..\Application\UserService.Application.Contracts\UserService.Application.Contracts.csproj" />
+  </ItemGroup>
 </Project>

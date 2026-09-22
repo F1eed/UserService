@@ -9,9 +9,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Confluent.Kafka" Version="2.11.1" />
-        <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
-        <PackageReference Include="MongoDB.Driver" Version="3.5.0" />
+      <PackageReference Include="Grpc.AspNetCore" />
+      <PackageReference Include="MongoDB.Driver" />
+      <PackageReference Include="Confluent.Kafka" />
     </ItemGroup>
 
 </Project>

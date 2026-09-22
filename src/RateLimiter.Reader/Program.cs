@@ -1,11 +1,11 @@
-using RateLimiter.Reader.Controllers;
+using Itmo.HighLoad.RateLimiter.Reader.Controllers;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<ExampleController>();
