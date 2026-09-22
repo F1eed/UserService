@@ -1,6 +1,5 @@
 using Itmo.HighLoad.Application.Abstractions.Persistence.Queries;
 using Itmo.HighLoad.Application.Model.Users;
-using UserDeleteQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserDeleteQuery;
 
 namespace Itmo.HighLoad.Application.Abstractions.Persistence.Repositories;
 
@@ -11,7 +10,7 @@ public interface IUserRepository
         CancellationToken cancellationToken);
 
     Task<User?> QueryByIdAsync(
-        UserQueryById query,
+        long userId,
         CancellationToken cancellationToken);
 
     IAsyncEnumerable<User> QueryByNameAndSurnameAsync(
@@ -23,6 +22,6 @@ public interface IUserRepository
         CancellationToken cancellationToken);
 
     Task DeleteUserAsync(
-        UserDeleteQuery query,
+        long userId,
         CancellationToken cancellationToken);
 }

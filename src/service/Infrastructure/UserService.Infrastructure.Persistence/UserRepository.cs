@@ -4,8 +4,6 @@ using Npgsql;
 using System.Data;
 using System.Data.Common;
 using System.Runtime.CompilerServices;
-using UserDeleteQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserDeleteQuery;
-using UserQueryById = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserQueryById;
 using UserQueryByNameAndSurname = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserQueryByNameAndSurname;
 using UserUpdateQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queries.UserUpdateQuery;
 
@@ -60,7 +58,7 @@ internal class UserRepository : IUserRepository
     }
 
     public async Task<User?> QueryByIdAsync(
-        UserQueryById query,
+        long userId,
         CancellationToken cancellationToken)
     {
         await using NpgsqlConnection connection = await _dataSource.OpenConnectionAsync(cancellationToken);
@@ -75,8 +73,6 @@ internal class UserRepository : IUserRepository
         FROM users
         WHERE (user_id = :id)
         """;
-
-        long userId = query.Id;
 
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("id", userId));
@@ -154,7 +150,7 @@ internal class UserRepository : IUserRepository
     }
 
     public async Task DeleteUserAsync(
-        UserDeleteQuery query,
+        long userId,
         CancellationToken cancellationToken)
     {
         await using NpgsqlConnection connection = await _dataSource.OpenConnectionAsync(cancellationToken);
@@ -164,7 +160,6 @@ internal class UserRepository : IUserRepository
         WHERE (user_id = :id)
         """;
 
-        long userId = query.Id;
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("id", userId));
 

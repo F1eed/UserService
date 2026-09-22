@@ -1,8 +1,6 @@
 using FluentMigrator.Runner;
 using Itmo.HighLoad.Application.Abstractions.Persistence.Repositories;
-using Itmo.HighLoad.Application.Abstractions.Persistence.Transactions;
 using Itmo.HighLoad.Infrastructure.Persistence.Options;
-using Itmo.HighLoad.Infrastructure.Persistence.Transactions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,9 +34,7 @@ public static class ServiceCollectionExtensions
                 .WithMigrationsIn(typeof(IAssemblyMarker).Assembly))
             .AddLogging(logging => logging.AddFluentMigratorConsole());
 
-        collection.AddScoped<IUserRepository, UserRepository>();
-
-        collection.AddScoped<IPersistenceTransactionProvider, PostgresPersistenceTransactionProvider>();
+        collection.AddSingleton<IUserRepository, UserRepository>();
 
         return collection;
     }

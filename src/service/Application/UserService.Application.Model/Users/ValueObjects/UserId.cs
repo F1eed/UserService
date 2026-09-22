@@ -1,6 +1,6 @@
 namespace Itmo.HighLoad.Application.Model.Users.ValueObjects;
 
-public class UserId
+public readonly record struct UserId
 {
     public UserId(long value)
     {
@@ -12,5 +12,5 @@ public class UserId
     public static UserId Default()
         => new UserId(0);
 
-    public long Value { get; private set; }
+    public long Value { get; }
 }
