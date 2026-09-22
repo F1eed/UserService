@@ -8,8 +8,4 @@
         <Protobuf Include="Protos\writer-service.proto" GrpcServices="Server" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="Grpc.AspNetCore" />
-    </ItemGroup>
-
 </Project>

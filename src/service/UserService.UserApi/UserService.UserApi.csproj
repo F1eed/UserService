@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Itmo.HighLoad.UserApi</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\UserService.Application\UserService.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\UserService.Infrastructure.Persistence\UserService.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Presentation\UserService.Presentation.Grpc\UserService.Presentation.Grpc.csproj" />
+  </ItemGroup>
+</Project>

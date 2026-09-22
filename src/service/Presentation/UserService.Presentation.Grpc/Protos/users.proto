@@ -1,0 +1,78 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "UserService.Presentation.Grpc";
+
+package users;
+
+service UserService {
+  rpc CreateUsersController (CreateUsersRequest) returns (CreateUsersResponse);
+  rpc GetUserController (GetUserRequest) returns (GetUserResponse);
+  rpc GetUsersController (GetUsersRequest) returns (GetUsersResponse);
+  rpc UpdateUserController (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUserController (DeleteUserRequest) returns (google.protobuf.Empty);
+}
+
+message CreateUsersRequest {
+  repeated UserEntry Entries = 1;
+}
+
+message CreateUsersResponse {
+  repeated User users = 1;
+}
+
+message UserEntry {
+  string login = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  Date birth_date = 5;
+}
+
+message GetUserRequest {
+  int64 id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message GetUsersRequest {
+  string name = 1;
+  string surname = 2;
+}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message UpdateUserRequest {
+  int64 id = 1;
+  optional string password = 2;
+  optional string name = 3;
+  optional string surname = 4;
+  Date birth_date = 5;
+}
+
+message UpdateUserResponse {
+  string reply = 1;
+}
+
+message DeleteUserRequest {
+  int64 id = 1;
+}
+
+message User {
+  int64 id = 1;
+  string login = 2;
+  string name = 3;
+  string surname = 4;
+  Date birth_date = 5;
+}
+
+message Date {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+}
