@@ -16,6 +16,9 @@
     <Folder Name="/src/service/Presentation/">
         <Project Path="src/service/Presentation/UserService.Presentation.Grpc/UserService.Presentation.Grpc.csproj" />
     </Folder>
+    <Folder Name="/src/service/UserService.UserApi/">
+        <Project Path="src/service/UserService.UserApi/UserService.UserApi.csproj" />
+    </Folder>
     <Folder Name="/src/">
         <Project Path="src/RateLimiter.Reader/RateLimiter.Reader.csproj" />
         <Project Path="src/RateLimiter.Writer/RateLimiter.Writer.csproj" />

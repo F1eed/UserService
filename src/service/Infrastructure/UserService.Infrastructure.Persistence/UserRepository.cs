@@ -11,7 +11,7 @@ using UserUpdateQuery = Itmo.HighLoad.Application.Abstractions.Persistence.Queri
 
 namespace Itmo.HighLoad.Infrastructure.Persistence;
 
-public class UserRepository : IUserRepository
+internal class UserRepository : IUserRepository
 {
     private readonly NpgsqlDataSource _dataSource;
 

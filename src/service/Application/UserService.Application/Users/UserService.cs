@@ -23,13 +23,13 @@ internal class UserService : IUserService
     }
 
     public async Task<CreateUsers.Result> CreateUsersAsync(
-        CreateUsers.Request request,
+        CreateUsers.Request createUsersRequest,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var users = request.Users
+        var users = createUsersRequest.Users
             .Select(x => User.CreateFromService(
                 x.Login,
                 x.Password,
@@ -48,13 +48,13 @@ internal class UserService : IUserService
     }
 
     public async Task<GetUser.Result> GetUserAsync(
-        GetUser.Request request,
+        GetUser.Request getUserRequest,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var query = UserQueryById.Build(builder => builder.WithId(request.Id));
+        var query = UserQueryById.Build(builder => builder.WithId(getUserRequest.Id));
 
         User? user = await _userRepository.QueryByIdAsync(query, cancellationToken);
 
@@ -67,21 +67,18 @@ internal class UserService : IUserService
     }
 
     public async Task<GetUsers.Result> GetUsersAsync(
-        GetUsers.Request request,
+        GetUsers.Request getUsersRequest,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var query = UserQueryByNameAndSurname.Build(builder => builder.WithName(request.Name)
-            .WithSurname(request.Surname));
+        var query = UserQueryByNameAndSurname.Build(builder => builder.WithName(getUsersRequest.Name)
+            .WithSurname(getUsersRequest.Surname));
 
-        List<User> users = [];
-
-        await foreach (User user in _userRepository.QueryByNameAndSurnameAsync(query, cancellationToken))
-        {
-            users.Add(user);
-        }
+        List<User> users = await _userRepository
+            .QueryByNameAndSurnameAsync(query, cancellationToken)
+            .ToListAsync(cancellationToken: cancellationToken);
 
         if (users.Count == 0)
         {
@@ -92,18 +89,18 @@ internal class UserService : IUserService
     }
 
     public async Task<UpdateUser.Result> UpdateUserAsync(
-        UpdateUser.Request request,
+        UpdateUser.Request updateUserRequest,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
         var query = UserUpdateQuery.Build(builder => builder
-            .WithId(request.Id)
-            .WithPassword(request.Password)
-            .WithName(request.Name)
-            .WithSurname(request.Surname)
-            .WithDateOfBirth(request.DateOfBirth));
+            .WithId(updateUserRequest.Id)
+            .WithPassword(updateUserRequest.Password)
+            .WithName(updateUserRequest.Name)
+            .WithSurname(updateUserRequest.Surname)
+            .WithDateOfBirth(updateUserRequest.DateOfBirth));
 
         if (await _userRepository.UpdateUserAsync(query, cancellationToken) is false)
         {
@@ -116,14 +113,14 @@ internal class UserService : IUserService
     }
 
     public async Task DeleteUserAsync(
-        DeleteUser.Request request,
+        DeleteUser.Request deleteUserRequest,
         CancellationToken cancellationToken)
     {
         await using IPersistenceTransaction transaction = await _transactionProvider
             .BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
         var query = UserDeleteQuery.Build(builder => builder
-            .WithId(request.Id));
+            .WithId(deleteUserRequest.Id));
 
         await _userRepository.DeleteUserAsync(query, cancellationToken);
 
