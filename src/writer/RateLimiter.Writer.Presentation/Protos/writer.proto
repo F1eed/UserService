@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-option csharp_namespace = "Itmo.HighLoad.RateLimiter.Writer";
+option csharp_namespace = "RateLimiter.Writer.Presentation";
 
 package writer;
 
@@ -36,7 +36,7 @@ message GetLimitResponse {
 
 message UpdateLimitRequest {
   string route = 1;
-  optional int32 requests_per_minute = 2;
+  int32 requests_per_minute = 2;
 }
 
 message UpdateLimitResponse {

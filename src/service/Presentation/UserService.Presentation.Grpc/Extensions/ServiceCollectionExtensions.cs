@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Itmo.HighLoad.Presentation.Grpc.Interceptors;
-using Itmo.HighLoad.Presentation.Grpc.Validation;
 using Microsoft.Extensions.DependencyInjection;
+using UserService.Presentation.Grpc.Interceptors;
+using UserService.Presentation.Grpc.Validation;
 
-namespace Itmo.HighLoad.Presentation.Grpc.Extensions;
+namespace UserService.Presentation.Grpc.Extensions;
 
 public static class ServiceCollectionExtensions
 {
