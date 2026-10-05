@@ -23,7 +23,7 @@ message CreateLimitResponse {
 
 message RateLimit {
   string route = 1;
-  int64 requests_per_minute = 2;
+  int32 requests_per_minute = 2;
 }
 
 message GetLimitRequest {
@@ -36,7 +36,7 @@ message GetLimitResponse {
 
 message UpdateLimitRequest {
   string route = 1;
-  optional int64 requests_per_minute = 2;
+  optional int32 requests_per_minute = 2;
 }
 
 message UpdateLimitResponse {
