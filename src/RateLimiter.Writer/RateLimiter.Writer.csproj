@@ -8,4 +8,8 @@
         <Protobuf Include="Protos\writer-service.proto" GrpcServices="Server" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" />
+    </ItemGroup>
+
 </Project>
