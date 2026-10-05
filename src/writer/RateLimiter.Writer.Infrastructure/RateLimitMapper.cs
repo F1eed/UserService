@@ -12,13 +12,4 @@ public static class RateLimitMapper
             entity.Route,
             RequestsPerMinute.Create(entity.RequestsPerMinute));
     }
-
-    public static RateLimitEntity ToEntity(RateLimit rateLimit)
-    {
-        return new RateLimitEntity
-        {
-            Route = rateLimit.Route,
-            RequestsPerMinute = rateLimit.RequestsPerMinute.Value,
-        };
-    }
 }
