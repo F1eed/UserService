@@ -7,10 +7,10 @@ option csharp_namespace = "Itmo.HighLoad.RateLimiter.Writer";
 package writer;
 
 service Writer {
-  rpc CreateLimit (CreateLimitRequest) returns (CreateLimitResponse);
-  rpc GetLimitByRoute (GetLimitRequest) returns (GetLimitResponse);
-  rpc UpdateLimit (UpdateLimitRequest) returns (UpdateLimitResponse);
-  rpc DeleteLimit (DeleteLimitRequest) returns (google.protobuf.Empty);
+  rpc CreateLimitController (CreateLimitRequest) returns (CreateLimitResponse);
+  rpc GetLimitByRouteController (GetLimitRequest) returns (GetLimitResponse);
+  rpc UpdateLimitController (UpdateLimitRequest) returns (UpdateLimitResponse);
+  rpc DeleteLimitController (DeleteLimitRequest) returns (google.protobuf.Empty);
 }
 
 message CreateLimitRequest {
