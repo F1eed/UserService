@@ -2,7 +2,7 @@
 
 namespace RateLimiter.Writer.Application.Contracts;
 
-public interface IWriteService
+public interface IWriterService
 {
     Task<CreateLimit.Response> CreateLimitAsync(
         CreateLimit.Request createLimitRequest,
