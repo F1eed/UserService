@@ -1,5 +1,5 @@
-﻿using RateLimiter.Writer.Application.Models;
-using RateLimiter.Writer.Application.Models.ValueObjects;
+﻿using RateLimiter.Writer.Application.Abstractions.Persistence.Queries;
+using RateLimiter.Writer.Application.Models;
 
 namespace RateLimiter.Writer.Application.Abstractions.Persistence.Repositories;
 
@@ -14,8 +14,7 @@ public interface IWriterRepository
         CancellationToken cancellationToken);
 
     Task<bool> UpdateLimitAsync(
-        string route,
-        RequestsPerMinute rateLimit,
+        UpdateQuery updateQuery,
         CancellationToken cancellationToken);
 
     Task DeleteLimitAsync(
