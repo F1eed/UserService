@@ -45,8 +45,12 @@ public class WriterService(IWriterRepository writerRepository) : IWriterService
         UpdateLimit.Request updateLimitRequest,
         CancellationToken cancellationToken)
     {
+        var rateLimit = new RateLimit(
+            updateLimitRequest.Route,
+            RequestsPerMinute.Create(updateLimitRequest.RequestsPerMinute));
+
         if (await writerRepository.UpdateLimitAsync(
-                new UpdateQuery(updateLimitRequest.Route, updateLimitRequest.RequestsPerMinute),
+                new UpdateQuery(rateLimit.Route, rateLimit.RequestsPerMinute.Value),
                 cancellationToken))
         {
             return new UpdateLimit.Response.Success("Success update.");

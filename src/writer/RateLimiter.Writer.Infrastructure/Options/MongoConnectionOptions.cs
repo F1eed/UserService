@@ -1,8 +1,16 @@
-﻿namespace RateLimiter.Writer.Infrastructure.Options;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RateLimiter.Writer.Infrastructure.Options;
 
 public sealed class MongoConnectionOptions
 {
-    public required string ConnectionString { get; init; }
+    [MinLength(1)]
+    public required string Host { get; init; } = string.Empty;
 
-    public required string DatabaseName { get; init; }
+    [Range(minimum: 1, maximum: 65535)]
+    public required int Port { get; init; }
+
+    public required string Database { get; init; } = string.Empty;
+
+    public string ToConnectionString() => $"mongodb://{Host}:{Port}/{Database}";
 }

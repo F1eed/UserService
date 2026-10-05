@@ -13,9 +13,9 @@ public sealed class MongoContext
     {
         MongoConnectionOptions mongoOptions = options.Value;
 
-        var client = new MongoClient(mongoOptions.ConnectionString);
+        var client = new MongoClient(mongoOptions.ToConnectionString());
 
-        IMongoDatabase database = client.GetDatabase(mongoOptions.DatabaseName);
+        IMongoDatabase database = client.GetDatabase(mongoOptions.Database);
 
         RateLimits = database.GetCollection<RateLimitEntity>("rate_limits");
 

@@ -6,6 +6,7 @@
     <Protobuf Include="Protos\writer.proto" GrpcServices="Server" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
     <ProjectReference Include="..\RateLimiter.Writer.Application\RateLimiter.Writer.Application.csproj" />
     <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
