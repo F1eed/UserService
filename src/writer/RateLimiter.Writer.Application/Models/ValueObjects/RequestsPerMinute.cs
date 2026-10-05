@@ -1,4 +1,4 @@
-﻿namespace RateLimiter.Writer.Application.Domain.ValueObjects;
+﻿namespace RateLimiter.Writer.Application.Models.ValueObjects;
 
 public readonly record struct RequestsPerMinute
 {

@@ -1,6 +1,6 @@
-﻿using RateLimiter.Writer.Application.Domain.ValueObjects;
+﻿using RateLimiter.Writer.Application.Models.ValueObjects;
 
-namespace RateLimiter.Writer.Application.Domain;
+namespace RateLimiter.Writer.Application.Models;
 
 public sealed class RateLimit
 {
