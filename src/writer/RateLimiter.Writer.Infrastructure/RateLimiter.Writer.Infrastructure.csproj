@@ -1,2 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RateLimiter.Writer.Application\RateLimiter.Writer.Application.csproj" />
+  </ItemGroup>
 </Project>
