@@ -1,3 +1,4 @@
+using RateLimiter.Writer.Application.Abstractions.Persistence.Queries;
 using RateLimiter.Writer.Application.Abstractions.Persistence.Repositories;
 using RateLimiter.Writer.Application.Application.Mapping;
 using RateLimiter.Writer.Application.Contracts;
@@ -45,8 +46,7 @@ public class WriterService(IWriterRepository writerRepository) : IWriterService
         CancellationToken cancellationToken)
     {
         if (await writerRepository.UpdateLimitAsync(
-                updateLimitRequest.Route,
-                RequestsPerMinute.Create(updateLimitRequest.RequestsPerMinute),
+                new UpdateQuery(updateLimitRequest.Route, updateLimitRequest.RequestsPerMinute),
                 cancellationToken))
         {
             return new UpdateLimit.Response.Success("Success update.");

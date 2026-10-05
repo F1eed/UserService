@@ -11,10 +11,8 @@ public static class ServiceCollectionExtensions
         this IServiceCollection collection,
         IConfiguration configuration)
     {
-        IConfigurationSection mongoSection = configuration.GetSection("Infrastructure:Persistence:Mongo");
-
         collection.AddOptions<MongoConnectionOptions>()
-            .Bind(mongoSection)
+            .BindConfiguration("Infrastructure:Persistence:Mongo")
             .ValidateDataAnnotations()
             .ValidateOnStart();
 

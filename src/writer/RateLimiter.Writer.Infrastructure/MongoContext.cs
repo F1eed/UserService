@@ -18,5 +18,14 @@ public sealed class MongoContext
         IMongoDatabase database = client.GetDatabase(mongoOptions.DatabaseName);
 
         RateLimits = database.GetCollection<RateLimitEntity>("rate_limits");
+
+        IndexKeysDefinition<RateLimitEntity> indexDefinition = Builders<RateLimitEntity>
+            .IndexKeys.Ascending(x => x.Route);
+
+        var indexOptions = new CreateIndexOptions { Unique = true, };
+
+        var indexModel = new CreateIndexModel<RateLimitEntity>(indexDefinition, indexOptions);
+
+        RateLimits.Indexes.CreateOne(indexModel);
     }
 }
