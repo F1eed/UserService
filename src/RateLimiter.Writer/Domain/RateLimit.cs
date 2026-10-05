@@ -1,6 +1,6 @@
-﻿using Itmo.HighLoad.RateLimiter.Writer.RateLimit.ValueObjects;
+﻿using Itmo.HighLoad.RateLimiter.Writer.Domain.ValueObjects;
 
-namespace Itmo.HighLoad.RateLimiter.Writer.RateLimit;
+namespace Itmo.HighLoad.RateLimiter.Writer.Domain;
 
 public sealed class RateLimit
 {
