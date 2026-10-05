@@ -12,5 +12,5 @@ public sealed class RateLimitEntity
     public required string Route { get; init; }
 
     [BsonElement("requests_per_minute")]
-    public required long RequestsPerMinute { get; init; }
+    public required int RequestsPerMinute { get; init; }
 }
