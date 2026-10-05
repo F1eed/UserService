@@ -4,6 +4,7 @@
         <File Path="Directory.Build.props" />
         <File Path=".gitignore" />
     </Folder>
+    <Folder Name="/src/service/" />
     <Folder Name="/src/service/Application/">
         <Project Path="src/service/Application/UserService.Application.Abstractions/UserService.Application.Abstractions.csproj" />
         <Project Path="src/service/Application/UserService.Application.Contracts/UserService.Application.Contracts.csproj" />
@@ -21,7 +22,11 @@
     </Folder>
     <Folder Name="/src/">
         <Project Path="src/RateLimiter.Reader/RateLimiter.Reader.csproj" />
-        <Project Path="src/RateLimiter.Writer/RateLimiter.Writer.csproj" />
         <Project Path="src/UserRequestsKafkaGenerator/UserRequestsKafkaGenerator.csproj" />
+    </Folder>
+    <Folder Name="/src/writer/">
+        <Project Path="src/writer/RateLimiter.Writer.Application/RateLimiter.Writer.Application.csproj" />
+        <Project Path="src/writer/RateLimiter.Writer.Infrastructure/RateLimiter.Writer.Infrastructure.csproj" />
+        <Project Path="src/writer/RateLimiter.Writer.Presentation/RateLimiter.Writer.Presentation.csproj" />
     </Folder>
 </Solution>
