@@ -13,7 +13,7 @@ public sealed class MongoContext
     {
         MongoConnectionOptions mongoOptions = options.Value;
 
-        MongoClient client = new(mongoOptions.ConnectionString);
+        var client = new MongoClient(mongoOptions.ConnectionString);
 
         IMongoDatabase database = client.GetDatabase(mongoOptions.DatabaseName);
 

@@ -4,7 +4,7 @@ public static class UpdateLimit
 {
     public readonly record struct Request(
         string Route,
-        long? RequestsPerMinute);
+        int? RequestsPerMinute);
 
     public abstract record Response
     {

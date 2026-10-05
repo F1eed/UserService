@@ -13,5 +13,5 @@ public static class CreateLimit
         public sealed record Success(RateLimitDto RateLimit) : Response;
     }
 
-    public record RateLimitEntry(string Route, long RequestsPerMinute);
+    public record RateLimitEntry(string Route, int RequestsPerMinute);
 }
