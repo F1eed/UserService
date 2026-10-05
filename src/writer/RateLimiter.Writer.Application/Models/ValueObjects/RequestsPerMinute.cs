@@ -2,16 +2,16 @@
 
 public readonly record struct RequestsPerMinute
 {
-    public int Value { get; }
+    public long Value { get; }
 
-    private RequestsPerMinute(int value)
+    private RequestsPerMinute(long value)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(value);
 
         Value = value;
     }
 
-    public static RequestsPerMinute Create(int value)
+    public static RequestsPerMinute Create(long value)
     {
         return new RequestsPerMinute(value);
     }
