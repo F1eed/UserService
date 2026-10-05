@@ -15,7 +15,7 @@ public interface IWriterRepository
 
     Task<bool> UpdateLimitAsync(
         string route,
-        RequestsPerMinute? rateLimit,
+        RequestsPerMinute rateLimit,
         CancellationToken cancellationToken);
 
     Task DeleteLimitAsync(

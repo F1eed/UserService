@@ -28,5 +28,6 @@
         <Project Path="src/writer/RateLimiter.Writer.Application/RateLimiter.Writer.Application.csproj" />
         <Project Path="src/writer/RateLimiter.Writer.Infrastructure/RateLimiter.Writer.Infrastructure.csproj" />
         <Project Path="src/writer/RateLimiter.Writer.Presentation/RateLimiter.Writer.Presentation.csproj" />
+        <Project Path="src/writer/Writer.Api/Writer.Api.csproj" />
     </Folder>
 </Solution>
