@@ -8,9 +8,9 @@ public sealed class RateLimit
 
     public string Route { get; }
 
-    public RateLimit(RequestsPerMinute requestsPerMinute, string route)
+    public RateLimit(string route, RequestsPerMinute requestsPerMinute)
     {
-        RequestsPerMinute = requestsPerMinute;
         Route = route;
+        RequestsPerMinute = requestsPerMinute;
     }
 }
