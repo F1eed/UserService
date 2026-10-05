@@ -1,4 +1,4 @@
-﻿namespace Itmo.HighLoad.RateLimiter.Writer.Domain.ValueObjects;
+﻿namespace RateLimiter.Writer.Application.Domain.ValueObjects;
 
 public readonly record struct RequestsPerMinute
 {
