@@ -1,7 +1,6 @@
 using FluentValidation;
-using UserService.Presentation.Grpc;
 
-namespace Itmo.HighLoad.Presentation.Grpc.Validation;
+namespace UserService.Presentation.Grpc.Validation;
 
 public class DateValidator : AbstractValidator<Date>
 {

@@ -2,7 +2,7 @@ using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Microsoft.Extensions.Logging;
 
-namespace Itmo.HighLoad.Presentation.Grpc.Interceptors;
+namespace UserService.Presentation.Grpc.Interceptors;
 
 public sealed partial class ErrorInterceptor : Interceptor
 {
