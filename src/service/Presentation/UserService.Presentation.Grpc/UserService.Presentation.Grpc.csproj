@@ -3,11 +3,6 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Itmo.HighLoad.Presentation.Grpc</RootNamespace>
-  </PropertyGroup>
     
   <ItemGroup>
     <Protobuf Include="Protos/users.proto" GrpcServices="Server" />

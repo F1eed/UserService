@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "RateLimiter.Writer.Presentation";
+
+package writer;
+
+service Writer {
+  rpc CreateLimitController (CreateLimitRequest) returns (CreateLimitResponse);
+  rpc GetLimitByRouteController (GetLimitRequest) returns (GetLimitResponse);
+  rpc UpdateLimitController (UpdateLimitRequest) returns (UpdateLimitResponse);
+  rpc DeleteLimitController (DeleteLimitRequest) returns (google.protobuf.Empty);
+}
+
+message CreateLimitRequest {
+  RateLimit rate_limit = 1;
+}
+
+message CreateLimitResponse {
+  RateLimit rate_limit = 1;
+}
+
+message RateLimit {
+  string route = 1;
+  int32 requests_per_minute = 2;
+}
+
+message GetLimitRequest {
+  string route = 1;
+}
+
+message GetLimitResponse {
+  RateLimit rate_limit = 1;
+}
+
+message UpdateLimitRequest {
+  string route = 1;
+  int32 requests_per_minute = 2;
+}
+
+message UpdateLimitResponse {
+  string reply = 1;
+}
+
+message DeleteLimitRequest {
+  string route = 1;
+}

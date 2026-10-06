@@ -8,3 +8,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+  
+  mongo:
+    container_name: mongo-database
+    image: mongo:7.0
+    ports:
+      - "27017:27017"

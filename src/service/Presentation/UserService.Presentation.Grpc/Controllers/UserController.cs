@@ -2,13 +2,12 @@
 using Grpc.Core;
 using Itmo.HighLoad.Application.Contracts.Users;
 using Itmo.HighLoad.Application.Contracts.Users.Operations;
-using Itmo.HighLoad.Presentation.Grpc.Mapping;
 using System.Diagnostics;
-using UserService.Presentation.Grpc;
+using UserService.Presentation.Grpc.Mapping;
 
-namespace Itmo.HighLoad.Presentation.Grpc.Controllers;
+namespace UserService.Presentation.Grpc.Controllers;
 
-public class UserController : UserService.Presentation.Grpc.UserService.UserServiceBase
+public class UserController : UserService.UserServiceBase
 {
     private readonly IUserService _userService;
 

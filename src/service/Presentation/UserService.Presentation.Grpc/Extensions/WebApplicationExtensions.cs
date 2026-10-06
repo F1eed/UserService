@@ -1,7 +1,7 @@
-﻿using Itmo.HighLoad.Presentation.Grpc.Controllers;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
+using UserService.Presentation.Grpc.Controllers;
 
-namespace Itmo.HighLoad.Presentation.Grpc.Extensions;
+namespace UserService.Presentation.Grpc.Extensions;
 
 public static class WebApplicationExtensions
 {

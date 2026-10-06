@@ -1,3 +1,3 @@
-namespace Itmo.HighLoad.Presentation.Grpc.Validation;
+namespace UserService.Presentation.Grpc.Validation;
 
 public interface IAssemblyMarker;
