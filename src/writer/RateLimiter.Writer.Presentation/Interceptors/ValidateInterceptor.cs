@@ -38,7 +38,7 @@ public sealed partial class ValidateInterceptor : Interceptor
                 Logs.LogValidationFailure(_logger, context.Method, formattedErrors);
 
                 throw new RpcException(new Status(
-                    StatusCode.FailedPrecondition,
+                    StatusCode.InvalidArgument,
                     $"Validation failed: {formattedErrors}"));
             }
         }
