@@ -25,9 +25,16 @@ public sealed class WriterRepository : IWriterRepository
             RequestsPerMinute = rateLimit.RequestsPerMinute.Value,
         };
 
-        await _collection.InsertOneAsync(
-            entity,
-            cancellationToken: cancellationToken);
+        try
+        {
+            await _collection.InsertOneAsync(
+                entity,
+                cancellationToken: cancellationToken);
+        }
+        catch (MongoDuplicateKeyException ex)
+        {
+            throw new ArgumentException(ex.Message);
+        }
 
         return rateLimit;
     }
