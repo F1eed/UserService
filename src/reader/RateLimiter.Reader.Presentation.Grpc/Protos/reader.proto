@@ -1,0 +1,20 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "RateLimiter.Reader.Presentation";
+
+package reader;
+
+service Reader {
+  rpc GetAllLimits (google.protobuf.Empty) returns (GetAllLimitsResponse);
+}
+
+message GetAllLimitsResponse {
+  repeated RateLimit limits = 1;
+}
+
+message RateLimit {
+  string route = 1;
+  int32 requests_per_minute = 2;
+}

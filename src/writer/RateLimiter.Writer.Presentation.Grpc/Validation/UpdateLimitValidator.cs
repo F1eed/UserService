@@ -8,7 +8,6 @@ public class UpdateLimitValidator : AbstractValidator<UpdateLimitRequest>
     {
         RuleFor(x => x.RequestsPerMinute)
             .GreaterThan(0)
-            .WithMessage("Supports only positive RPM")
-            .WithErrorCode("422");
+            .WithMessage("Supports only positive RPM");
     }
 }
