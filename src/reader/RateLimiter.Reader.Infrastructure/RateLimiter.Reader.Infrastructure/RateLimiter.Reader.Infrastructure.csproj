@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
+    <ProjectReference Include="..\RateLimiter.Reader.Infrastructure.InMemory\RateLimiter.Reader.Infrastructure.InMemory.csproj" />
+    <ProjectReference Include="..\RateLimiter.Reader.Infrastructure.Mongo\RateLimiter.Reader.Infrastructure.Mongo.csproj" />
   </ItemGroup>
 </Project>
