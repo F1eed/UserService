@@ -4,6 +4,10 @@
         <File Path="Directory.Build.props" />
         <File Path=".gitignore" />
     </Folder>
+    <Folder Name="/src/reader/">
+        <Project Path="src/reader/RateLimiter.Reader.Infrastructure/RateLimiter.Reader.Infrastructure.csproj" />
+        <Project Path="src\reader\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
+    </Folder>
     <Folder Name="/src/service/" />
     <Folder Name="/src/service/Application/">
         <Project Path="src/service/Application/UserService.Application.Abstractions/UserService.Application.Abstractions.csproj" />
