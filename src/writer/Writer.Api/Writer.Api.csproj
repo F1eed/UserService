@@ -1,11 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\RateLimiter.Writer.Application\RateLimiter.Writer.Application.csproj" />
     <ProjectReference Include="..\RateLimiter.Writer.Infrastructure\RateLimiter.Writer.Infrastructure.csproj" />
