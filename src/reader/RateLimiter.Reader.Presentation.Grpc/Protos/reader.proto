@@ -2,7 +2,7 @@
 
 import "google/protobuf/empty.proto";
 
-option csharp_namespace = "RateLimiter.Presentation";
+option csharp_namespace = "RateLimiter.Reader.Presentation";
 
 package reader;
 
