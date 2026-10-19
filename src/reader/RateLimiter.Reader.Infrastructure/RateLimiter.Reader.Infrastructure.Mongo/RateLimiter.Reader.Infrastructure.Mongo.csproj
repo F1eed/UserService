@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
-    <ProjectReference Include="..\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
