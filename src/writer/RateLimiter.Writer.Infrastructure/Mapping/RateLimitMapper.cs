@@ -2,7 +2,7 @@
 using RateLimiter.Writer.Application.Models.ValueObjects;
 using RateLimiter.Writer.Infrastructure.Entities;
 
-namespace RateLimiter.Writer.Infrastructure;
+namespace RateLimiter.Writer.Infrastructure.Mapping;
 
 public static class RateLimitMapper
 {
