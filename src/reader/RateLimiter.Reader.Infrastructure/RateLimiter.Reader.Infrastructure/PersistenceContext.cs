@@ -2,7 +2,7 @@
 using RateLimiter.Reader.Application.Abstractions.InMemory.Repositories;
 using RateLimiter.Reader.Application.Abstractions.Mongo.Repositories;
 
-namespace PersistenceContext;
+namespace RateLimiter.Reader.Infrastructure;
 
 public class PersistenceContext : IPersistenceContext
 {

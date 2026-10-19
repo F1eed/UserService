@@ -1,16 +1,24 @@
 using Microsoft.Extensions.Hosting;
+using RateLimiter.Reader.Application.Contracts;
 
 namespace RateLimiter.Reader.Application.Application;
 
 public class HostedService : IHostedService
 {
+    private readonly IReaderService _readerService;
+
+    public HostedService(IReaderService readerService)
+    {
+        _readerService = readerService;
+    }
+
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return _readerService.InitializeAsync();
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 }
