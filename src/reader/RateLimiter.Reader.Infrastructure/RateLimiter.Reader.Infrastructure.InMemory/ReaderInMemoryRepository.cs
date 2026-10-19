@@ -9,17 +9,20 @@ public sealed class ReaderInMemoryRepository : IReaderInMemoryRepository
 {
     private readonly ConcurrentDictionary<string, int> _values = new();
 
-    public bool TryAddLimit(RateLimit limit)
+    public void AddLimit(RateLimit limit)
     {
-        return _values.TryAdd(limit.Route, limit.RequestsPerMinute.Value);
+        _values.TryAdd(limit.Route, limit.RequestsPerMinute.Value);
     }
 
     public bool TryUpdateLimit(RateLimit limit)
     {
-        return _values.TryUpdate(
-            limit.Route,
-            limit.RequestsPerMinute.Value,
-            _values[limit.Route]);
+        if (_values.ContainsKey(limit.Route))
+        {
+            _values[limit.Route] = limit.RequestsPerMinute.Value;
+            return true;
+        }
+
+        return false;
     }
 
     public IEnumerable<RateLimit> GetAllLimits()

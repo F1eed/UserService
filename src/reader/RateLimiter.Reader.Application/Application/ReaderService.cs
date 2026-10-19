@@ -1,6 +1,6 @@
 using RateLimiter.Reader.Application.Abstractions;
 using RateLimiter.Reader.Application.Contracts;
-using RateLimiter.Reader.Application.Contracts.Models;
+using RateLimiter.Reader.Application.Models;
 
 namespace RateLimiter.Reader.Application.Application;
 
@@ -13,8 +13,28 @@ public class ReaderService : IReaderService
         _context = context;
     }
 
-    public GetAllLimits.Result GetAllLimits()
+    public async Task InitializeAsync()
     {
-        return new GetAllLimits.Result.Success(_context.InMemoryRepository.GetAllLimits());
+        await foreach (RateLimit limit in _context.MongoRepository.LoadLimitsAsync())
+        {
+            _context.InMemoryRepository.AddLimit(limit);
+        }
+
+        _ = Task.Factory
+            .StartNew(async () =>
+            {
+                await foreach (RateLimit limit in _context.MongoRepository.WatchLimitsAsync())
+                {
+                    if (_context.InMemoryRepository.TryUpdateLimit(limit) is false)
+                    {
+                        throw new InvalidOperationException($"Cannot add limit for {limit.Route}");
+                    }
+                }
+            }).Unwrap();
+    }
+
+    public IEnumerable<RateLimit> GetAllLimits()
+    {
+        return _context.InMemoryRepository.GetAllLimits();
     }
 }

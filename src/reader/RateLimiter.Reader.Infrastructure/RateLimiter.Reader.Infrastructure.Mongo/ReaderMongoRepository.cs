@@ -11,9 +11,9 @@ public sealed class ReaderMongoRepository : IReaderMongoRepository
     private const int DefaultBatchSize = 1000;
     private readonly IMongoCollection<RateLimitEntity> _collection;
 
-    public ReaderMongoRepository(IMongoCollection<RateLimitEntity> collection)
+    public ReaderMongoRepository(MongoContext context)
     {
-        _collection = collection;
+        _collection = context.RateLimits;
     }
 
     public async IAsyncEnumerable<RateLimit> LoadLimitsAsync()
@@ -39,10 +39,15 @@ public sealed class ReaderMongoRepository : IReaderMongoRepository
             pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<RateLimitEntity>>()
                 .Match(change => change.OperationType == ChangeStreamOperationType.Update);
 
-        using IChangeStreamCursor<ChangeStreamDocument<RateLimitEntity>> cursor
-            = await _collection.WatchAsync(pipeline);
+        var options = new ChangeStreamOptions
+        {
+            FullDocument = ChangeStreamFullDocumentOption.UpdateLookup,
+        };
 
-        await foreach (ChangeStreamDocument<RateLimitEntity>? entry in cursor.ToAsyncEnumerable())
+        using IChangeStreamCursor<ChangeStreamDocument<RateLimitEntity>> cursor
+            = await _collection.WatchAsync(pipeline, options);
+
+        await foreach (ChangeStreamDocument<RateLimitEntity> entry in cursor.ToAsyncEnumerable())
         {
             yield return entry.FullDocument.ToDomain();
         }

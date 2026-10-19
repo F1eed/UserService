@@ -4,7 +4,7 @@ namespace RateLimiter.Reader.Application.Abstractions.InMemory.Repositories;
 
 public interface IReaderInMemoryRepository
 {
-    bool TryAddLimit(RateLimit limit);
+    void AddLimit(RateLimit limit);
 
     bool TryUpdateLimit(RateLimit limit);
 
