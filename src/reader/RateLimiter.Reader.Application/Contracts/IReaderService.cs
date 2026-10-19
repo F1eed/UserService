@@ -1,8 +1,10 @@
-using RateLimiter.Reader.Application.Contracts.Models;
+using RateLimiter.Reader.Application.Models;
 
 namespace RateLimiter.Reader.Application.Contracts;
 
 public interface IReaderService
 {
-    GetAllLimits.Result GetAllLimits();
+    Task InitializeAsync();
+
+    IEnumerable<RateLimit> GetAllLimits();
 }
