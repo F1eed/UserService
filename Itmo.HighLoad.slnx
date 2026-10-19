@@ -5,6 +5,7 @@
         <File Path=".gitignore" />
     </Folder>
     <Folder Name="/src/reader/">
+        <Project Path="src/reader/RateLimiter.Reader.Api/RateLimiter.Reader.Api.csproj" />
         <Project Path="src/reader/RateLimiter.Reader.Presentation.Grpc/RateLimiter.Reader.Presentation.Grpc.csproj" />
         <Project Path="src\reader\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
     </Folder>
