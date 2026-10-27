@@ -61,6 +61,7 @@ public class GeneratorWorker : IAsyncDisposable
             try
             {
                 await _producer.ProduceAsync(
+                    Config.UserId.Value,
                     new RateLimiterKafkaEvent(Config.UserId, Config.Endpoint),
                     cancellationToken);
             }

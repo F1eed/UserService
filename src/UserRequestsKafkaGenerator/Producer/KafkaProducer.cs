@@ -23,13 +23,14 @@ public class KafkaProducer<TMessage> : IKafkaProducer<TMessage>
         _topic = options.Value.Topic;
     }
 
-    public async Task ProduceAsync(TMessage message, CancellationToken cancellationToken)
+    // Не особо понимаю нормально так или нет:D
+    public async Task ProduceAsync(int key, TMessage message, CancellationToken cancellationToken)
     {
         await _producer.ProduceAsync(
             _topic,
             new Message<string, TMessage>
             {
-                Key = "lala",
+                Key = key.ToString(),
                 Value = message,
             },
             cancellationToken);
