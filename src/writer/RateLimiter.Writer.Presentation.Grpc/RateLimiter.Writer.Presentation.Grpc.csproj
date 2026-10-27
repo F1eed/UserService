@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
+    <RootNamespace>RateLimiter.Writer.Presentation</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Protobuf Include="Protos\writer.proto" GrpcServices="Server" />

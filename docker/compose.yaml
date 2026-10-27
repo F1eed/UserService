@@ -1,6 +1,7 @@
+name: user-service
+
 services:
   postgres:
-    container_name: postgres-database
     image: postgres:latest
     ports:
       - "5434:5432"
@@ -10,7 +11,6 @@ services:
       POSTGRES_DB: postgres
   
   mongo:
-    container_name: mongo-database
     image: mongo:7.0
     ports:
       - "27017:27017"
