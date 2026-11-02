@@ -3,16 +3,17 @@ using RateLimiter.Writer.Application.Abstractions.Persistence.Queries;
 using RateLimiter.Writer.Application.Abstractions.Persistence.Repositories;
 using RateLimiter.Writer.Application.Models;
 using RateLimiter.Writer.Infrastructure.Entities;
+using RateLimiter.Writer.Infrastructure.Mapping;
 
 namespace RateLimiter.Writer.Infrastructure;
 
 public sealed class WriterRepository : IWriterRepository
 {
-    private readonly IMongoCollection<RateLimitEntity> _collection;
+    private readonly IMongoCollection<RateLimitEntity> _rateLimitCollection;
 
     public WriterRepository(MongoContext context)
     {
-        _collection = context.RateLimits;
+        _rateLimitCollection = context.RateLimits;
     }
 
     public async Task<RateLimit> AddLimitAsync(
@@ -27,7 +28,7 @@ public sealed class WriterRepository : IWriterRepository
 
         try
         {
-            await _collection.InsertOneAsync(
+            await _rateLimitCollection.InsertOneAsync(
                 entity,
                 cancellationToken: cancellationToken);
         }
@@ -43,7 +44,7 @@ public sealed class WriterRepository : IWriterRepository
         string route,
         CancellationToken cancellationToken)
     {
-        RateLimitEntity? entity = await _collection
+        RateLimitEntity? entity = await _rateLimitCollection
             .Find(x => x.Route == route)
             .FirstOrDefaultAsync(cancellationToken);
 
@@ -54,7 +55,7 @@ public sealed class WriterRepository : IWriterRepository
         UpdateQuery updateQuery,
         CancellationToken cancellationToken)
     {
-        UpdateResult result = await _collection.UpdateOneAsync(
+        UpdateResult result = await _rateLimitCollection.UpdateOneAsync(
             x => x.Route == updateQuery.Route,
             Builders<RateLimitEntity>.Update
                 .Set(
@@ -69,7 +70,7 @@ public sealed class WriterRepository : IWriterRepository
         string route,
         CancellationToken cancellationToken)
     {
-        await _collection.DeleteOneAsync(
+        await _rateLimitCollection.DeleteOneAsync(
             x => x.Route == route,
             cancellationToken);
     }
