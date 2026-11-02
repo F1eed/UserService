@@ -1,0 +1,59 @@
+﻿using Confluent.Kafka;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using RateLimiter.Reader.Application.Contracts;
+using RateLimiter.Reader.KafkaConsumer.Models;
+using RateLimiter.Reader.KafkaConsumer.Options;
+
+namespace RateLimiter.Reader.KafkaConsumer.Consumer;
+
+public sealed class UserRequestConsumer(
+    IOptions<KafkaOptions> options,
+    IRedisService service) : BackgroundService
+{
+    private readonly KafkaOptions _options = options.Value;
+
+    protected override async Task ExecuteAsync(
+        CancellationToken stoppingToken)
+    {
+        var config = new ConsumerConfig
+        {
+            BootstrapServers = _options.BootstrapServers,
+            GroupId = _options.GroupId,
+            AutoOffsetReset = AutoOffsetReset.Earliest,
+            EnableAutoCommit = false,
+        };
+
+        using IConsumer<Ignore, RateLimiterKafkaEvent> consumer =
+            new ConsumerBuilder<Ignore, RateLimiterKafkaEvent>(config)
+                .SetValueDeserializer(
+                    new RateLimiterEventDeserializer<RateLimiterKafkaEvent>())
+                .Build();
+
+        consumer.Subscribe(_options.Topic);
+
+        try
+        {
+            while (stoppingToken.IsCancellationRequested == false)
+            {
+                ConsumeResult<Ignore, RateLimiterKafkaEvent> consumeResult =
+                    consumer.Consume(stoppingToken);
+
+                RateLimiterKafkaEvent request = consumeResult.Message.Value;
+
+                await service.ProcessRequestAsync(
+                    request.UserId,
+                    request.Endpoint);
+
+                consumer.Commit(consumeResult);
+            }
+        }
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            consumer.Close();
+        }
+    }
+}
