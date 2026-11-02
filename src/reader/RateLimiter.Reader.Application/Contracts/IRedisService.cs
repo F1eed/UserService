@@ -2,5 +2,8 @@
 
 public interface IRedisService
 {
-    Task ProcessRequestAsync(long userId, string endpoint);
+    Task ProcessRequestAsync(
+        long userId,
+        string endpoint,
+        CancellationToken cancellationToken);
 }
