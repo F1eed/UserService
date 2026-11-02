@@ -4,7 +4,7 @@ namespace RateLimiter.Reader.KafkaConsumer.Models;
 
 public sealed record RateLimiterKafkaEvent(
     [property: JsonPropertyName("user_id")]
-    int UserId,
+    long UserId,
 
     [property: JsonPropertyName("endpoint")]
     string Endpoint);

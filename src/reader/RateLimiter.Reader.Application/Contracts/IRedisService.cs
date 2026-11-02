@@ -2,5 +2,5 @@
 
 public interface IRedisService
 {
-    Task ProcessRequestAsync(int userId, string endpoint);
+    Task ProcessRequestAsync(long userId, string endpoint);
 }
