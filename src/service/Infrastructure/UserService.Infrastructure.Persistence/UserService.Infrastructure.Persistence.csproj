@@ -3,7 +3,6 @@
     <RootNamespace>Itmo.HighLoad.Infrastructure.Persistence</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapper" />
     <PackageReference Include="FluentMigrator" />
     <PackageReference Include="FluentMigrator.Runner.Postgres" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />

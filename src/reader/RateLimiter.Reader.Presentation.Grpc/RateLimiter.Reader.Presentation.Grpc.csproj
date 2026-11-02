@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <RootNamespace>RateLimiter.Reader.Presentation</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <Protobuf Include="Protos\reader.proto" GrpcServices="Server" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
+        <ProjectReference Include="..\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
+        <PackageReference Include="Grpc.AspNetCore" />
+    </ItemGroup>
+</Project>
