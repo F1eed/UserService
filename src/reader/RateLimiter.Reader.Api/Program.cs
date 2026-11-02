@@ -1,5 +1,6 @@
 using RateLimiter.Reader.Application;
 using RateLimiter.Reader.Infrastructure;
+using RateLimiter.Reader.KafkaConsumer;
 using RateLimiter.Reader.Presentation.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddPersistenceContext()
     .AddPresentationGrpc()
-    .AddApplication();
+    .AddApplication()
+    .AddKafkaConsumer(builder.Configuration);
 
 WebApplication app = builder.Build();
 

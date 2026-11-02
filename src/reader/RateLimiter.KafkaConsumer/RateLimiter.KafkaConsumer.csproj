@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>RateLimiter.Reader.KafkaConsumer</RootNamespace>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Confluent.Kafka" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
+    </ItemGroup>
+</Project>
