@@ -43,7 +43,8 @@ public sealed class UserRequestConsumer(
 
                 await service.ProcessRequestAsync(
                     request.UserId,
-                    request.Endpoint);
+                    request.Endpoint,
+                    stoppingToken);
 
                 consumer.Commit(consumeResult);
             }
