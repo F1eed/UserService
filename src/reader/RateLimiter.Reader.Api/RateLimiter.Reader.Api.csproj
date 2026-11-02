@@ -3,6 +3,7 @@
     <ItemGroup>
         <ProjectReference Include="..\RateLimiter.KafkaConsumer\RateLimiter.KafkaConsumer.csproj" />
         <ProjectReference Include="..\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure.csproj" />
+        <ProjectReference Include="..\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.RateLimitsStatisticsRepository\RateLimiter.Reader.RateLimitsStatisticsRepository.csproj" />
         <ProjectReference Include="..\RateLimiter.Reader.Presentation.Grpc\RateLimiter.Reader.Presentation.Grpc.csproj" />
         <ProjectReference Include="..\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure.InMemory\RateLimiter.Reader.Infrastructure.InMemory.csproj" />
     </ItemGroup>
