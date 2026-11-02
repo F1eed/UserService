@@ -24,7 +24,7 @@ public static class ServiceCollectionExtensions
 
         string connectionString = options.ToConnectionString();
 
-        collection.AddSingleton<ConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(new ConfigurationOptions
+        collection.AddSingleton(_ => ConnectionMultiplexer.Connect(new ConfigurationOptions
         {
             EndPoints = { connectionString },
         }));
