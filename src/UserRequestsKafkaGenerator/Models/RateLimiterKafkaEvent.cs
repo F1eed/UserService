@@ -11,7 +11,7 @@ public record RateLimiterKafkaEvent
     }
 
     [property: JsonPropertyName("user_id")]
-    public int UserId { get; }
+    public long UserId { get; }
 
     [property: JsonPropertyName("endpoint")]
     public string Endpoint { get; }
