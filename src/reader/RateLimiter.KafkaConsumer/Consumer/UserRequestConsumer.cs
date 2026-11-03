@@ -20,8 +20,8 @@ public sealed class UserRequestConsumer(
         {
             BootstrapServers = _options.BootstrapServers,
             GroupId = _options.GroupId,
-            AutoOffsetReset = AutoOffsetReset.Earliest,
-            EnableAutoCommit = false,
+            AutoOffsetReset = _options.AutoOffsetReset,
+            EnableAutoCommit = _options.EnableAutoCommit,
         };
 
         using IConsumer<Ignore, RateLimiterKafkaEvent> consumer =
