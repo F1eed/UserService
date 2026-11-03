@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration)
     {
         collection.AddSingleton<IReaderService, ReaderService>();
+        collection.AddSingleton<IRedisService, RedisService>();
         collection.AddHostedService<HostedService>();
 
         collection.AddOptions<RateLimitStatisticOptions>()
