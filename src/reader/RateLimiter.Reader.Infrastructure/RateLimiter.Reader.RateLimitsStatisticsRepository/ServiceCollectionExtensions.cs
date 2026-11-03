@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
             EndPoints = { connectionString },
         }));
 
-        collection.AddSingleton<IRateLimitStatisticsRepository>();
+        collection.AddSingleton<IRateLimitStatisticsRepository, RateLimitStatisticsRepository>();
 
         return collection;
     }
