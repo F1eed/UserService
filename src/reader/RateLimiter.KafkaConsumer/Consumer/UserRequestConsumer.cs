@@ -36,8 +36,17 @@ public sealed class UserRequestConsumer(
         {
             while (stoppingToken.IsCancellationRequested == false)
             {
-                ConsumeResult<Ignore, RateLimiterKafkaEvent> consumeResult =
-                    consumer.Consume(stoppingToken);
+                ConsumeResult<Ignore, RateLimiterKafkaEvent> consumeResult;
+
+                try
+                {
+                    consumeResult = consumer.Consume(stoppingToken);
+                }
+                catch (ConsumeException e)
+                    when (e.Error.Code == ErrorCode.Local_ValueDeserialization)
+                {
+                    continue;
+                }
 
                 RateLimiterKafkaEvent request = consumeResult.Message.Value;
 
