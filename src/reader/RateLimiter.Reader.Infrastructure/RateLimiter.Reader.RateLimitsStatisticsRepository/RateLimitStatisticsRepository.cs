@@ -5,6 +5,32 @@ namespace RateLimiter.Reader.RateLimitsStatisticsRepository;
 
 public class RateLimitStatisticsRepository : IRateLimitStatisticsRepository
 {
+    private const string Script =
+        """
+        local counterKey = KEYS[1]
+        local banKey = KEYS[2]
+        
+        if (redis.call('EXISTS', banKey) == 1) then
+            return
+        end
+        
+        local count = tonumber(redis.call('GET', counterKey)) or 0
+        
+        local RPM = tonumber(ARGV[1])
+        local window = tonumber(ARGV[2])
+        local ban = tonumber(ARGV[3])
+        
+        if (count >= RPM) then
+            redis.call('SET', banKey, '1', 'EX', ban)
+            redis.call('DEL', counterKey)
+        else
+            local newCount = redis.call('INCR', counterKey)
+            if (newCount == 1) then
+                redis.call('EXPIRE', counterKey, window)
+            end
+        end
+        """;
+
     private readonly IConnectionMultiplexer _connection;
 
     public RateLimitStatisticsRepository(IConnectionMultiplexer connection)
@@ -27,47 +53,9 @@ public class RateLimitStatisticsRepository : IRateLimitStatisticsRepository
         RedisKey counterKey = $"rpm:{userId}:{route}";
         RedisKey banKey = $"ban:{userId}";
 
-        // Можно наверное количество ретраев сделать, но я не знаю как:D
-        while (true)
-        {
-            if (await database.KeyExistsAsync(banKey))
-                return;
-
-            RedisValue current = await database.StringGetAsync(counterKey);
-
-            long count = current.IsNull ? 0 : (long)current;
-
-            ITransaction transaction = database.CreateTransaction();
-
-            transaction.AddCondition(Condition.KeyNotExists(banKey));
-            transaction.AddCondition(current.IsNull
-                ? Condition.KeyNotExists(counterKey)
-                : Condition.StringEqual(counterKey, current));
-
-            if (count >= requestsPerMinute)
-            {
-                _ = transaction.StringSetAsync(
-                    banKey,
-                    "1",
-                    ban,
-                    When.Always);
-
-                _ = transaction.KeyDeleteAsync(counterKey);
-            }
-            else
-            {
-                _ = transaction.StringIncrementAsync(counterKey);
-
-                if (current.IsNull)
-                {
-                    _ = transaction.KeyExpireAsync(counterKey, window);
-                }
-            }
-
-            bool commited = await transaction.ExecuteAsync();
-
-            if (commited)
-                return;
-        }
+        await database.ScriptEvaluateAsync(
+            Script,
+            keys: [counterKey, banKey],
+            values: [requestsPerMinute, window.TotalSeconds, window.TotalSeconds]);
     }
 }
