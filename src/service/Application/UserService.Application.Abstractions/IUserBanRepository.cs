@@ -4,5 +4,7 @@ namespace Itmo.HighLoad.Application.Abstractions;
 
 public interface IUserBanRepository
 {
-    Task<bool> IsUserBannedAsync(UserId userId);
+    Task<bool> IsUserBannedAsync(
+        UserId userId,
+        CancellationToken cancellationToken);
 }
