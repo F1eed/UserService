@@ -1,6 +1,7 @@
 using FluentMigrator.Runner;
 using Itmo.HighLoad.Application;
 using Itmo.HighLoad.Infrastructure.Persistence;
+using UserService.Infrastructure.UserBanned;
 using UserService.Presentation.Grpc.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddApplication()
     .AddInfrastructurePersistence(builder.Configuration)
-    .AddPresentationGrpc();
+    .AddPresentationGrpc()
+    .AddRedis(builder.Configuration);
 
 WebApplication app = builder.Build();
 
