@@ -24,6 +24,7 @@
         <Project Path="src/service/Application/UserService.Application/UserService.Application.csproj" />
     </Folder>
     <Folder Name="/src/service/Infrastructure/">
+        <Project Path="src/service/Infrastructure/UserService.Infrastructure.UserBanned/UserService.Infrastructure.UserBanned.csproj" />
         <Project Path="src\service\Infrastructure\UserService.Infrastructure.Persistence\UserService.Infrastructure.Persistence.csproj" />
     </Folder>
     <Folder Name="/src/service/Presentation/">
