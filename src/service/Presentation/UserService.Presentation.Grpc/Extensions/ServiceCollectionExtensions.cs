@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
             options.Interceptors.Add<ErrorInterceptor>();
             options.Interceptors.Add<ValidateInterceptor>();
             options.Interceptors.Add<UserIdInterceptors>();
+            options.Interceptors.Add<RateLimitInterceptor>();
         });
         collection.AddGrpcReflection();
         return collection;

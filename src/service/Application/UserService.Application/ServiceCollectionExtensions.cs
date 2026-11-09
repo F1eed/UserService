@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplication(this IServiceCollection collection)
     {
         collection.AddSingleton<IUserService, UserService>();
+        collection.AddSingleton<IUserBanService, UserBanService>();
 
         return collection;
     }
