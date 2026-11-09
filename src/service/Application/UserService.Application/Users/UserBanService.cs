@@ -12,7 +12,7 @@ public sealed class UserBanService : IUserBanService
         _userBanRepository = userBanRepository;
     }
 
-    public Task<bool> IsBannedAsync(
+    public async Task<bool> IsBannedAsync(
         long userId,
         CancellationToken cancellationToken)
     {
@@ -20,6 +20,6 @@ public sealed class UserBanService : IUserBanService
             userId,
             cancellationToken);
 
-        return response;
+        return await response;
     }
 }
