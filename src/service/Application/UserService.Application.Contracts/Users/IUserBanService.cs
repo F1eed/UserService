@@ -2,7 +2,7 @@
 
 public interface IUserBanService
 {
-    Task<bool> IsBannedAsync(
+    Task<bool> IsBanned(
         long userId,
         CancellationToken cancellationToken);
 }

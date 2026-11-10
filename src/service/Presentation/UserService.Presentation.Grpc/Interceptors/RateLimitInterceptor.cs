@@ -20,7 +20,7 @@ public sealed class RateLimitInterceptor : Interceptor
     {
         long userId = (long)context.UserState["user_id"];
 
-        bool isBanned = await _banService.IsBannedAsync(userId, context.CancellationToken);
+        bool isBanned = await _banService.IsBanned(userId, context.CancellationToken);
 
         if (isBanned)
         {
