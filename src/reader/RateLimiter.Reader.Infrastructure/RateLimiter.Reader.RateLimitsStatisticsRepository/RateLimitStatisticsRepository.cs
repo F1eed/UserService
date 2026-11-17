@@ -56,6 +56,6 @@ public class RateLimitStatisticsRepository : IRateLimitStatisticsRepository
         await database.ScriptEvaluateAsync(
             Script,
             keys: [counterKey, banKey],
-            values: [requestsPerMinute, window.TotalSeconds, window.TotalSeconds]);
+            values: [requestsPerMinute, window.TotalSeconds, ban.TotalSeconds]);
     }
 }

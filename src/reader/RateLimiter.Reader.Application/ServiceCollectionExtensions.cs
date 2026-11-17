@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
         collection.AddHostedService<HostedService>();
 
         collection.AddOptions<RateLimitStatisticOptions>()
-            .Bind(configuration.GetSection("RateLimitStatisticOptions"));
+            .Bind(configuration.GetSection("RateLimitStatisticsOptions"));
 
         return collection;
     }
