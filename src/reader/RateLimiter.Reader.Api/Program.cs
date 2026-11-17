@@ -1,13 +1,17 @@
 using RateLimiter.Reader.Application;
 using RateLimiter.Reader.Infrastructure;
+using RateLimiter.Reader.KafkaConsumer;
 using RateLimiter.Reader.Presentation.Extensions;
+using RateLimiter.Reader.RateLimitsStatisticsRepository;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddPersistenceContext()
     .AddPresentationGrpc()
-    .AddApplication();
+    .AddApplication(builder.Configuration)
+    .AddKafkaConsumer(builder.Configuration)
+    .AddRedis(builder.Configuration);
 
 WebApplication app = builder.Build();
 

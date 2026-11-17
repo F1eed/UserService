@@ -5,6 +5,7 @@
         <File Path=".gitignore" />
     </Folder>
     <Folder Name="/src/reader/">
+        <Project Path="src/reader/RateLimiter.KafkaConsumer/RateLimiter.KafkaConsumer.csproj" />
         <Project Path="src/reader/RateLimiter.Reader.Api/RateLimiter.Reader.Api.csproj" />
         <Project Path="src/reader/RateLimiter.Reader.Presentation.Grpc/RateLimiter.Reader.Presentation.Grpc.csproj" />
         <Project Path="src\reader\RateLimiter.Reader.Application\RateLimiter.Reader.Application.csproj" />
@@ -12,7 +13,8 @@
     <Folder Name="/src/reader/RateLimiter.Reader.Infrastructure/">
       <Project Path="src/reader/RateLimiter.Reader.Infrastructure/RateLimiter.Reader.Infrastructure.InMemory/RateLimiter.Reader.Infrastructure.InMemory.csproj" />
       <Project Path="src/reader/RateLimiter.Reader.Infrastructure/RateLimiter.Reader.Infrastructure.Mongo/RateLimiter.Reader.Infrastructure.Mongo.csproj" />
-        <Project Path="src\reader\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure.csproj" />
+      <Project Path="src\reader\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.Infrastructure.csproj" />
+      <Project Path="src\reader\RateLimiter.Reader.Infrastructure\RateLimiter.Reader.RateLimitsStatisticsRepository\RateLimiter.Reader.RateLimitsStatisticsRepository.csproj" />
     </Folder>
     <Folder Name="/src/service/" />
     <Folder Name="/src/service/Application/">
